@@ -1,0 +1,14 @@
+<mat-sidenav-container style="height: 100vh;">
+  <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+    <button mat-icon-button (click)="collapsed.set(!collapsed())">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <ek-sidenav-content [collapsed]="collapsed()">
+    </ek-sidenav-content>
+  </mat-sidenav>
+ 
+  <mat-sidenav-content class="sidenav-content" [style.margin-left]="sidenavWidth()">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
