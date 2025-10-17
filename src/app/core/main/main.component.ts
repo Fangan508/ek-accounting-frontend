@@ -3,12 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { SidenavService } from './services/sidenav.service';
-import { MatIcon } from '@angular/material/icon';
 import { SidenavContentComponent } from "./components/sidenav-content/sidenav-content.component";
+import { SidenavHeaderComponent } from './components/sidenav-header/sidenav-header.component';
 
 @Component({
   selector: 'ek-main',
-  imports: [RouterOutlet, MatSidenavModule, MatListModule, MatIcon, SidenavContentComponent],
+  imports: [RouterOutlet, MatSidenavModule, MatListModule, SidenavContentComponent, SidenavHeaderComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
@@ -20,6 +20,8 @@ export class MainComponent implements OnInit {
   sidenavWidth = computed(() => (this.collapsed() ? '65px' : '250px')); 
 
   items = this.initialSidenavItems;
+
+  isCollapsed = false;
 
   ngOnInit(): void {
   }

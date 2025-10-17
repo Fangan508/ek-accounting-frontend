@@ -1,0 +1,12 @@
+<div class="ek-logo" [class.sidenav-expanded]="!expanded">
+  
+  @if(!expanded) { 
+  <img class="logo" src="assets/images/logo.svg" alt="CompanyLogo" />
+  <div class="logo-text">
+    EK Industrie
+  </div>
+}
+  <button mat-icon-button disableRipple (click)="toggleSidenav.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</div>

@@ -26,8 +26,11 @@ export class SidenavContentComponent implements OnInit {
   items = this.initialSidenavItems;
 
   ngOnInit(): void {
-    
 
+  }
+
+  toggle() {
+    this._sidenavCollapsed.set(!this._sidenavCollapsed());
   }
 
   onMatListItemClick(sidenavItem: SidenavItemModel) {
@@ -36,5 +39,9 @@ export class SidenavContentComponent implements OnInit {
     if (path) {
       this._router.navigate([path]);
     }
+  }
+
+  isActive(route: string | undefined): boolean {
+    return this._router.url === route;
   }
 }

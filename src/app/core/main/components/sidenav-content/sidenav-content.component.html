@@ -1,18 +1,9 @@
-<div class="sidenav-header">
-  <img
-    [width]="profilePicSize()"
-    [height]="profilePicSize()"
-    src="assets/images/logo.png"
-    alt="CompanyLogo"
-  />
-  <div class="sidenav-header-text" [class.sidenav-header-hide]="_sidenavCollapsed()">
-    <h2>EK Industrie</h2>
-  </div>
-</div>
-
 <mat-nav-list>
   @for (item of items; track $index) {
-  <a mat-list-item (click)="onMatListItemClick(item)">
+  <a 
+  mat-list-item 
+  (click)="onMatListItemClick(item)" 
+  [class.active-link]="isActive(item.route)">
     <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
     @if (!_sidenavCollapsed()) {
       <span matListItemTitle>{{ item.displayName }}</span>
