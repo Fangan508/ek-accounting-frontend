@@ -1,9 +1,12 @@
 <mat-nav-list>
   @for (item of items; track $index) {
   <a 
+  class="menu-item"
   mat-list-item 
   (click)="onMatListItemClick(item)" 
-  [class.active-link]="isActive(item.route)">
+  [class.active-link]="isActive(item.route)"
+  [activated]="isActive(item.route)"
+  [class.selected-menu-item]="isActive(item.route)">
     <mat-icon [fontSet]="isActive(item.route) ? 'material-icons' : 'material-icons-outlined'" matListItemIcon>{{ item.icon }}</mat-icon>
     @if (!_sidenavCollapsed()) {
       <span matListItemTitle>{{ item.displayName }}</span>

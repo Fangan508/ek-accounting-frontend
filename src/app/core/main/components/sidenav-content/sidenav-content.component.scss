@@ -11,3 +11,19 @@
 ::ng-deep .mat-sidenav-content.expanded {
   margin-left: 220px !important;
 }
+
+.menu-item {
+  border-radius: 0 !important;
+  border-left: 5px solid;
+  border-left-color: rgba(0,0,0,0);
+}
+
+.selected-menu-item {
+  border-left-color: blue;
+  background: rgba(0,0,0,0.2) !important;
+}
+
+.selected-menu-item mat-icon,
+.selected-menu-item span {
+  color: blue !important;
+}
