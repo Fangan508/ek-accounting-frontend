@@ -1,13 +1,4 @@
 ::ng-deep .mat-sidenav {
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+  border-radius: 0 !important;
   background-color: moccasin !important;
-}
-
-::ng-deep .mat-sidenav-content.collapsed {
-  margin-left: 80px !important;
-}
-
-::ng-deep .mat-sidenav-content.expanded {
-  margin-left: 220px !important;
 }

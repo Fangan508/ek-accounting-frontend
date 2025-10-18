@@ -5,10 +5,11 @@ import { MatListModule } from '@angular/material/list';
 import { SidenavService } from './services/sidenav.service';
 import { SidenavContentComponent } from "./components/sidenav-content/sidenav-content.component";
 import { SidenavHeaderComponent } from './components/sidenav-header/sidenav-header.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ek-main',
-  imports: [RouterOutlet, MatSidenavModule, MatListModule, SidenavContentComponent, SidenavHeaderComponent],
+  imports: [CommonModule, RouterOutlet, MatSidenavModule, MatListModule, SidenavContentComponent, SidenavHeaderComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })

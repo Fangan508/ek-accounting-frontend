@@ -1,13 +1,23 @@
 <mat-sidenav-container style="height: 100vh;" class="container">
-  <mat-sidenav #sidenavContent opened mode="side" [style.width]="isCollapsed ? '60px' : '200px'">
+  <mat-sidenav
+    #sidenavContent
+    opened
+    mode="side"
+    [style.width]="isCollapsed ? '60px' : '200px'"
+    [ngClass]="{ 'collapsed': isCollapsed, 'expanded': !isCollapsed }"
+    style="transition: width 0.9s ease; overflow-x: hidden; background-color: moccasin;"
+  >
     <ek-sidenav-header [expanded]="isCollapsed" (toggleSidenav)="isCollapsed = !isCollapsed">
     </ek-sidenav-header>
 
     <ek-sidenav-content [collapsed]="isCollapsed">
     </ek-sidenav-content>
   </mat-sidenav>
- 
-  <mat-sidenav-content [class.collapsed]="isCollapsed" [class.expanded]="!isCollapsed">
+
+  <mat-sidenav-content
+    [ngClass]="{ 'collapsed': isCollapsed, 'expanded': !isCollapsed }"
+    style="transition: margin-left 0.8s ease;"
+  >
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
