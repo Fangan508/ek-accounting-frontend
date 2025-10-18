@@ -9,14 +9,15 @@ export class SidenavService {
       displayName: 'Books',
       icon: 'book',
       route: '/accounting-books/bank-books',
-      //path: '/accounting-books/bank-books'
-      path: EK_ROUTES_CONFIG.accountingBooks.fullPath
+      path: '/accounting-books/bank-books'
+      // path: EK_ROUTES_CONFIG.accountingBooks.fullPath
     },
     {
       displayName: 'Invoices',
       icon: 'dashboard',
-      route: '/accounting-books/bank-books',
-      path: '/accounting-books/bank-books'
+      route: '/accounting-books/cash-books',
+      path: '/accounting-books/cash-books'
+      // path: EK_ROUTES_CONFIG.accountingBooks.fullPath
     }
   ];
 }
