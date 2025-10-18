@@ -1,14 +1,13 @@
-::ng-deep .mat-list-item {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  height: 40px !important;
+::ng-deep .mat-sidenav {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  background-color: moccasin !important;
+}
 
-  .mat-list-item-content {
-    height: 40px !important;
-  }
-} 
+::ng-deep .mat-sidenav-content.collapsed {
+  margin-left: 80px !important;
+}
 
-a.active-link {
-  background: transparent;
-  color: #1976d2 !important;
+::ng-deep .mat-sidenav-content.expanded {
+  margin-left: 220px !important;
 }

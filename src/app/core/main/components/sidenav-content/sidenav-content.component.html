@@ -4,7 +4,7 @@
   mat-list-item 
   (click)="onMatListItemClick(item)" 
   [class.active-link]="isActive(item.route)">
-    <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+    <mat-icon [fontSet]="isActive(item.route) ? 'material-icons' : 'material-icons-outlined'" matListItemIcon>{{ item.icon }}</mat-icon>
     @if (!_sidenavCollapsed()) {
       <span matListItemTitle>{{ item.displayName }}</span>
     }
