@@ -22,6 +22,8 @@
     "@angular/platform-browser": "^19.1.0",
     "@angular/platform-browser-dynamic": "^19.1.0",
     "@angular/router": "^19.2.15",
+    "@ngxs/logger-plugin": "^20.1.0",
+    "@ngxs/storage-plugin": "^20.1.0",
     "@ngxs/store": "^20.1.0",
     "ag-grid-angular": "^34.2.0",
     "ag-grid-community": "^34.2.0",

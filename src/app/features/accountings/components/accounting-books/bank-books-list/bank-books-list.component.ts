@@ -1,10 +1,12 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, effect  } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, ModuleRegistry  } from 'ag-grid-community';
 import { AllCommunityModule } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
+import { BankBooksFacade } from '@ek/features/state/bank-books/bank-books.facade';
+import { DEFAULT_PAGE_SIZES } from '@ek/shared/utils/table.utils';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -17,6 +19,21 @@ ModuleRegistry.registerModules([AllCommunityModule]);
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BankBooksListComponent {
+  readonly pageSizes = DEFAULT_PAGE_SIZES;
+  readonly bankBooks = this._bankBooksFacade.signalSelectors.bankBooks;
+  readonly request = this._bankBooksFacade.signalSelectors.bankBooksRequest;
+
+  constructor(
+    private readonly _bankBooksFacade: BankBooksFacade) {
+    console.log('Konstruktorrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+
+    effect(() => {
+      const request = this.request;
+      this._bankBooksFacade.actions.loadBankBooks();
+    });
+
+    console.log('Meine Buecherrrrrr: ', this.bankBooks());
+  }
 
   rowData = [
     {make: "Tesla", model: "Model Y", price: 64950, electric: true},

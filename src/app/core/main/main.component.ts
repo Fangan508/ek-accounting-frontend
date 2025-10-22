@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
   selector: 'ek-main',
   imports: [CommonModule, RouterOutlet, MatSidenavModule, MatListModule, SidenavContentComponent, SidenavHeaderComponent],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  styleUrl: './main.component.scss',
+  standalone: true
 })
 export class MainComponent implements OnInit {
   readonly _sidenavService = inject(SidenavService);
