@@ -11,9 +11,7 @@ export const MAIN_ROUTES: Route[] = [
         children: [
           {
               path: EK_ROUTES_CONFIG.accountingBooks.path,
-              providers: [],
-              loadChildren: () => import('@ek/features/accountings/accountings.route').then(m => m.ACCOUNTING_ROUTES)
-              // canActivate: []
+              loadChildren: () => import('@ek/features/accountings/accountings.routes').then(m => m.ACCOUNTING_ROUTES),
           }
         ]
     }   
