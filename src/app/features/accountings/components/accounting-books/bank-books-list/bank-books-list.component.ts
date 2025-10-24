@@ -1,12 +1,12 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, effect  } from '@angular/core';
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect  } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, ModuleRegistry  } from 'ag-grid-community';
 import { AllCommunityModule } from 'ag-grid-community';
+import { BankBooksFacade } from '@ek/features/state/bank-books/bank-books.facade';
+import { DEFAULT_PAGE_SIZES } from '@ek/shared/utils/table.utils';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
-import { BankBooksFacade } from '@ek/features/state/bank-books/bank-books.facade';
-import { DEFAULT_PAGE_SIZES } from '@ek/shared/utils/table.utils';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -25,29 +25,19 @@ export class BankBooksListComponent {
 
   constructor(
     private readonly _bankBooksFacade: BankBooksFacade) {
-    console.log('Konstruktorrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
 
     effect(() => {
       const request = this.request;
       this._bankBooksFacade.actions.loadBankBooks();
     });
-
-    console.log('Meine Buecherrrrrr: ', this.bankBooks());
   }
 
-  rowData = [
-    {make: "Tesla", model: "Model Y", price: 64950, electric: true},
-    {make: "Ford", model: "Mustang Mach-E", price: 58900, electric: true},
-    {make: "BMW", model: "X5", price: 65900, electric: false},
-    {make: "Hyundai", model: "Ioniq 5", price: 47900, electric: true},
-    {make: "Toyota", model: "Camry", price: 28950, electric: false},
-    {make: "Lucid", model: "Air Pure", price: 77400, electric: true}
-  ];
+  rowData = computed(() => {
+    return this.bankBooks().metadata ?? [];
+  });
 
   colDefs: ColDef[] = [
-    { field: "make"},
-    { field: "model"},
-    { field: "price"},
-    { field: "electric"}
+    { field: "name" },
+    { field: "bookingDate" }
   ];
 }
