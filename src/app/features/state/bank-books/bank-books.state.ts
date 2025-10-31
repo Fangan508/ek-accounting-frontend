@@ -2,15 +2,18 @@ import { StateMetadata } from '@ek/shared/models/state-metadata.model';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { produce } from 'immer';
-import { AccountingBookingService, GetBankBookDto } from '@ek/autogen/accountings/index';
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZES } from '@ek/shared/utils/table.utils';
+import { AccountingBookingService, GetBankBookDto, GetBankBookPositionDto } from '@ek/autogen/accountings/index';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@ek/shared/utils/table.utils';
 import { BankBooksActions } from './bank-books.actions';
-import { BankBooksRequest } from '@ek/features/accountings/models/accountings-books.model';
+import { BankBookDetailsRequest, BankBooksRequest } from '@ek/features/accountings/models/accountings-books.model';
 import { patch } from '@ngxs/store/operators';
 
 export class BankBooksStateModel {
   bankBooks!: StateMetadata<GetBankBookDto[]>;
+  detailsRequest!: BankBookDetailsRequest;
+  details!: StateMetadata<GetBankBookPositionDto[]>;
   request!: BankBooksRequest;
+  selectedBankBook?: GetBankBookDto;
 }
 
 const initialBankBooksState = {
@@ -21,10 +24,22 @@ const initialBankBooksState = {
   },
   request: {
     offset: DEFAULT_PAGE,
-    limit: DEFAULT_PAGE_SIZES,
+    limit: DEFAULT_PAGE_SIZE,
     searchText: '',
     sort: [],
     filter: {}
+  },
+  selectedBankBook: undefined,
+  detailsRequest: {
+    bankBookId: '',
+    offset: DEFAULT_PAGE,
+    limit: DEFAULT_PAGE_SIZE,
+    sort: []
+  },
+  details: {
+    loading: false,
+    metadata: [],
+    total: 0
   }
 };
 
@@ -44,6 +59,21 @@ export class BankBooksState {
   @Selector()
   static bankBooksRequest(state: BankBooksStateModel): BankBooksRequest {
     return state.request;
+  }
+
+  @Selector()
+  static selectedBankBook(state: BankBooksStateModel): GetBankBookDto | undefined {
+    return state.selectedBankBook;
+  }
+
+  @Selector()
+  static bankBookDetails(state: BankBooksStateModel): StateMetadata<GetBankBookPositionDto[]> {
+    return state.details;
+  }
+
+  @Selector()
+  static bankBookDetailsRequest(state: BankBooksStateModel): BankBookDetailsRequest {
+    return state.detailsRequest;
   }
 
   @Action(BankBooksActions.LoadBankBooks)
@@ -102,5 +132,94 @@ export class BankBooksState {
     patch({
       request
     });
+  }
+
+  // Bank Book Details
+
+  @Action(BankBooksActions.SetSelectedBankBook)
+  setSelectedBankBook(
+    { patchState }: StateContext<BankBooksStateModel>,
+    { bankBook }: BankBooksActions.SetSelectedBankBook
+  ): void {
+    patchState({
+      selectedBankBook: bankBook
+    });
+
+    // if bank book details window was closed, clean state
+    if(!bankBook) {
+      patchState({
+        //menuItems: [],
+        details: {
+          loading: false,
+          metadata: [],
+          total: 0
+        }
+      })
+    }
+  }
+
+  @Action(BankBooksActions.SetBankBookDetailsRequest)
+  setBankBookDetailsRequest(
+    { patchState }: StateContext<BankBooksStateModel>,
+    { request }: BankBooksActions.SetBankBookDetailsRequest
+  ): void {
+    patchState({
+      detailsRequest: request
+    });
+  }
+
+  @Action(BankBooksActions.LoadBankBookDetails)
+  loadBankBookDetails(
+    { getState, setState, dispatch }: StateContext<BankBooksStateModel>,
+    { bankBookId }: BankBooksActions.LoadBankBookDetails
+  ): void {
+    setState(
+      produce(draft => {
+        draft.details.loading = true;
+      })
+    );
+
+    const state = getState();
+    const { offset, limit, sort } = state.detailsRequest;
+    const orderBy = sort.filter(({ sort }) => sort).map(( {colId, sort}) => `${colId} ${sort}`);
+    
+    this._accountingBookingService.apiV1AccountingBookingBankBookIdGet(bankBookId, offset, limit, orderBy).subscribe({
+      next: res => {
+        //const allUrl = `/accounting-books/bank-books/${bankBookId}`;
+
+        
+        dispatch(new BankBooksActions.LoadBankBookDetailsSuccess(res.items ?? [], res.pagination?.total ?? 0));
+      },
+      error: error => {
+        dispatch(new BankBooksActions.LoadBankBookDetailsError(error));
+      }
+    });
+  }
+
+  @Action(BankBooksActions.LoadBankBookDetailsSuccess)
+  loadBankBookDetailsSucces(
+    { patchState }: StateContext<BankBooksStateModel>,
+    { details, total }: BankBooksActions.LoadBankBookDetailsSuccess
+  ): void {
+    patchState({
+      details:{
+        loading: false,
+        metadata: details,
+        total
+      }
+    });
+  }
+
+  @Action(BankBooksActions.LoadBankBookDetailsError)
+  loadBankBookDetailsError(
+    { setState }: StateContext<BankBooksStateModel>,
+    { error }: BankBooksActions.LoadBankBookDetailsError
+  ): void {
+    console.log(error);
+    setState(
+      produce(draft => {
+        draft.details.loading = false;
+      })
+    );
   }
 }

@@ -9,3 +9,9 @@ export interface BankBooksRequest {
   searchText?: string;
   sort: Array<{ colId: string; sort: 'asc' | 'desc'}>;
 }
+
+export interface BankBookDetailsRequest {
+  offset: number;
+  limit: number;
+  sort: Array<{ colId: string; sort: 'asc' | 'desc'}>;
+}

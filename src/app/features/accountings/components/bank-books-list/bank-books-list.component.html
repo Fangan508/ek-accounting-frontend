@@ -3,6 +3,7 @@
   style="width: 100%; height: 500px;"
   [rowData]="rowData()"
   [columnDefs]="colDefs"
+  (rowClicked)="openBankBook($event)"
   theme="legacy">
 </ag-grid-angular>
 

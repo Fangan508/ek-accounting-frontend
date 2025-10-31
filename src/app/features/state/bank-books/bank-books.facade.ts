@@ -9,12 +9,18 @@ export class BankBooksFacade {
 
   readonly signalSelectors = createSelectMap({
     bankBooks: select(BankBooksState.bankBooks),
-    bankBooksRequest: select(BankBooksState.bankBooksRequest)
+    bankBooksRequest: select(BankBooksState.bankBooksRequest),
+    selectedBankBook: select(BankBooksState.selectedBankBook),
+    bankBookDetailsRequest: select(BankBooksState.bankBookDetailsRequest),
+    bankBookDetails: select(BankBooksState.bankBookDetails),
   });
 
   readonly actions = createDispatchMap({
     loadBankBooks: BankBooksActions.LoadBankBooks,
-    setBankBooksRequest: BankBooksActions.SetBankBooksRequest
+    setBankBooksRequest: BankBooksActions.SetBankBooksRequest,
+    setSelectedBankBook: BankBooksActions.SetSelectedBankBook,
+    setBankBookDetailsRequest: BankBooksActions.SetBankBookDetailsRequest,
+    loadBankBookDetails: BankBooksActions.LoadBankBookDetails
   });
 
   constructor(private readonly _store: Store) {}

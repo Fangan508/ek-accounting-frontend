@@ -3,7 +3,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, ModuleRegistry  } from 'ag-grid-community';
 import { AllCommunityModule } from 'ag-grid-community';
 import { BankBooksFacade } from '@ek/features/state/bank-books/bank-books.facade';
-import { DEFAULT_PAGE_SIZES } from '@ek/shared/utils/table.utils';
+import { DEFAULT_PAGE_SIZE } from '@ek/shared/utils/table.utils';
+import { Router } from '@angular/router';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
@@ -19,11 +20,12 @@ ModuleRegistry.registerModules([AllCommunityModule]);
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BankBooksListComponent {
-  readonly pageSizes = DEFAULT_PAGE_SIZES;
+  readonly pageSizes = DEFAULT_PAGE_SIZE;
   readonly bankBooks = this._bankBooksFacade.signalSelectors.bankBooks;
   readonly request = this._bankBooksFacade.signalSelectors.bankBooksRequest;
 
   constructor(
+    private readonly _router: Router,
     private readonly _bankBooksFacade: BankBooksFacade) {
 
     effect(() => {
@@ -40,4 +42,11 @@ export class BankBooksListComponent {
     { field: "name" },
     { field: "bookingDate" }
   ];
+
+  openBankBook(event: any): void {
+    const bankBook = event.data;
+
+    this._bankBooksFacade.actions.setSelectedBankBook(bankBook);
+    this._router.navigate(['accounting-books/bank-books', bankBook.id]);
+  }
 }
