@@ -1,8 +1,15 @@
 import { Routes } from '@angular/router';
 import { ACCOUNTING_ROUTES_CONFIG } from '@ek/features/accountings/accounting-routes-config.const';
 import { BankBooksComponent } from './pages/bank-books/bank-books.component';
+import { CreateBankBookComponent } from '@ek/features/accountings/pages/create-bank-book/create-bank-book.component';
 
 export const ACCOUNTING_ROUTES: Routes = [
+  {
+    path: ACCOUNTING_ROUTES_CONFIG.createBankBook.path,
+    providers: [],
+    loadComponent: () => 
+      import('@ek/features/accountings/pages/create-bank-book/create-bank-book.component').then(() => CreateBankBookComponent)
+  },
   {
     path: 'bank-books',
     component: BankBooksComponent,
