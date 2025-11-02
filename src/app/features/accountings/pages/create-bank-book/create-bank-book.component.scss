@@ -1,0 +1,9 @@
+:host {
+  .step-wrapper {
+    max-width: 44rem;
+    margin: 0 auto;
+  }
+  .step-wrapper.full-width {
+    max-width: 100%;
+  }
+}
