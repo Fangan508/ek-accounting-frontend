@@ -1,5 +1,5 @@
 <div class="action-buttons">
   <button mat-button style="border-radius: 0;">Abbrechen</button>
-  <button mat-stroked-button style="border-radius: 0;">Zurück</button>
-  <button mat-flat-button style="border-radius: 0;">Weiter</button>
+  <button mat-stroked-button style="border-radius: 0;" [disabled]="isFirstStep()" (click)="onBack()">Zurück</button>
+  <button mat-flat-button style="border-radius: 0;" [disabled]="currentStep() === CreateBankBookStep.Positions" (click)="onNext()">Weiter</button>
 </div>

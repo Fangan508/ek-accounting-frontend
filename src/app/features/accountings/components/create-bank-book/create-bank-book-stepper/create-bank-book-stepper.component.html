@@ -1,4 +1,4 @@
-<mat-stepper>
+<mat-stepper [selectedIndex]="currentStep()">
   <mat-step *ngFor="let step of steps" [label]="step.label">
       
   </mat-step>

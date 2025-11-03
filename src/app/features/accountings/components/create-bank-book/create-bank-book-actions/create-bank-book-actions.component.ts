@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
+import { CreateBankBookStep } from '@ek/features/accountings/state/create-bank-book/create-bank-book.state';
 
 @Component({
   selector: 'ek-create-bank-book-actions',
@@ -8,5 +10,18 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './create-bank-book-actions.component.scss'
 })
 export class CreateBankBookActionsComponent {
+  readonly currentStep = this._createBankBookFacade.signalSelectors.currentStep;
+  readonly isFirstStep = computed(() => this.currentStep() === CreateBankBookStep.General);
+  readonly isValidStep = computed(() => { return this._createBankBookFacade.signalSelectors.isValidStep(); });
+  readonly CreateBankBookStep = CreateBankBookStep;
 
+  constructor(private readonly _createBankBookFacade: CreateBankBookFacade) {}
+
+  onBack(): void {
+    this._createBankBookFacade.actions.setCurrentStep(this.currentStep() - 1);
+  }
+
+  onNext(): void {
+    this._createBankBookFacade.actions.setCurrentStep(this.currentStep() + 1);
+  }
 }

@@ -4,6 +4,8 @@
   @switch (currentStep()) { 
     @case (CreateBankBookStep.General) {
       <ek-general-step />
+    } @case (CreateBankBookStep.Positions) {
+      <ek-bank-books-list></ek-bank-books-list>
     } @default {
       <ek-general-step />
     } 
