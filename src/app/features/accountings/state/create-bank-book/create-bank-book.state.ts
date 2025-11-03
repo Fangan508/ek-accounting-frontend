@@ -4,7 +4,8 @@ import { current } from "immer";
 import { CreateBankBookActions } from "./create-bank-book.actions";
 
 export enum CreateBankBookStep {
-  General
+  General,
+  Positions
 }
 
 export class CreateBankBookStateModel {

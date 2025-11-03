@@ -1,5 +1,11 @@
 <!-- <div class="step" [ngClass]="{ 'positions-step': currentStep()}" -->
 
-<div class="step">
-  <ek-general-step></ek-general-step>
+<div class="step" [ngClass]="{ 'positions-step': currentStep() === CreateBankBookStep.Positions}">
+  @switch (currentStep()) { 
+    @case (CreateBankBookStep.General) {
+      <ek-general-step />
+    } @default {
+      <ek-general-step />
+    } 
+  } 
 </div>

@@ -2,11 +2,18 @@ import { Routes } from '@angular/router';
 import { ACCOUNTING_ROUTES_CONFIG } from '@ek/features/accountings/accounting-routes-config.const';
 import { BankBooksComponent } from './pages/bank-books/bank-books.component';
 import { CreateBankBookComponent } from '@ek/features/accountings/pages/create-bank-book/create-bank-book.component';
+import { CreateBankBookFacade } from './state/create-bank-book/create-bank-book.facade';
+import { importProvidersFrom } from '@angular/core';
+import { NgxsModule } from '@ngxs/store';
+import { CreateBankBookState } from './state/create-bank-book/create-bank-book.state';
 
 export const ACCOUNTING_ROUTES: Routes = [
   {
     path: ACCOUNTING_ROUTES_CONFIG.createBankBook.path,
-    providers: [],
+    providers: [
+      CreateBankBookFacade,
+      importProvidersFrom(NgxsModule.forFeature([CreateBankBookState]))
+    ],
     loadComponent: () => 
       import('@ek/features/accountings/pages/create-bank-book/create-bank-book.component').then(() => CreateBankBookComponent)
   },
