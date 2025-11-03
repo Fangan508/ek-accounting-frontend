@@ -2,10 +2,10 @@ import { Route } from "@angular/router";
 import { MainComponent } from "./main.component";
 import { EK_ROUTES_CONFIG } from "../routing/ek-routes-config.const";
 import { SidenavService } from "./services/sidenav.service";
-import { BankBooksFacade } from "@ek/features/state/bank-books/bank-books.facade";
+import { BankBooksFacade } from "@ek/features/accountings/state/bank-books/bank-books.facade";
 import { importProvidersFrom } from "@angular/core";
 import { NgxsModule } from "@ngxs/store";
-import { BankBooksState } from "@ek/features/state/bank-books/bank-books.state";
+import { BankBooksState } from "@ek/features/accountings/state/bank-books/bank-books.state";
 
 export const MAIN_ROUTES: Route[] = [
     {

@@ -1,5 +1,5 @@
 import { Component, computed, effect, signal } from '@angular/core';
-import { BankBooksFacade } from '@ek/features/state/bank-books/bank-books.facade';
+import { BankBooksFacade } from '@ek/features/accountings/state/bank-books/bank-books.facade';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, ModuleRegistry  } from 'ag-grid-community';
 

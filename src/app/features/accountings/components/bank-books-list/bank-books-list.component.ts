@@ -2,7 +2,7 @@ import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect  } from '@angular/c
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, ModuleRegistry  } from 'ag-grid-community';
 import { AllCommunityModule } from 'ag-grid-community';
-import { BankBooksFacade } from '@ek/features/state/bank-books/bank-books.facade';
+import { BankBooksFacade } from '@ek/features/accountings/state/bank-books/bank-books.facade';
 import { DEFAULT_PAGE_SIZE } from '@ek/shared/utils/table.utils';
 import { Router } from '@angular/router';
 import 'ag-grid-community/styles/ag-grid.css';

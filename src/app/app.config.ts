@@ -4,7 +4,7 @@ import { provideStore } from '@ngxs/store';
 import { provideHttpClient } from '@angular/common/http';
 import { withNgxsStoragePlugin } from '@ngxs/storage-plugin';
 import { withNgxsLoggerPlugin } from '@ngxs/logger-plugin';
-import { BankBooksState } from './features/state/bank-books/bank-books.state';
+import { BankBooksState } from './features/accountings/state/bank-books/bank-books.state';
 import { environment } from 'environments/environment.local';
 import { BASE_PATH as accountingsBasePath } from '@ek/autogen/accountings/variables';
 
