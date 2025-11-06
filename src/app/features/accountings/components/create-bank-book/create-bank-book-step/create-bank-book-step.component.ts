@@ -8,7 +8,7 @@ import { CashBooksListComponent } from "../../cash-books-list/cash-books-list.co
 
 @Component({
   selector: 'ek-create-bank-book-step',
-  imports: [CommonModule, GeneralStepComponent, BankBooksListComponent, CashBooksListComponent],
+  imports: [CommonModule, GeneralStepComponent, BankBooksListComponent],
   templateUrl: './create-bank-book-step.component.html',
   styleUrl: './create-bank-book-step.component.scss'
 })

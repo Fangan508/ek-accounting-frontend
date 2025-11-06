@@ -1,1 +1,7 @@
-<ek-section-title title="Bankbuch anlegen"></ek-section-title>
+<ek-section-title title="Bankbuch"></ek-section-title>
+
+<ek-datepicker-form-field 
+  label="Datum auswählen"
+  [customControlError]="{ key: bankBookDateError()}"
+  (hasError)="onBankBookDateError($event)"/>
+

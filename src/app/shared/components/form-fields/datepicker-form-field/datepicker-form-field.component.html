@@ -1,0 +1,16 @@
+<mat-form-field>
+  <mat-label>{{ label }}</mat-label>
+  <input matInput [matDatepicker]="picker" [formControl]="control">
+  <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  <ng-container *ngTemplateOutlet="error"></ng-container>
+</mat-form-field>
+
+<ng-template #error>
+  @if (!customControlError && control.errors && control.touched) {
+    <mat-error>{{ control.errors | formFieldError }}</mat-error>
+  } @else if (customControlError && control.errors) {
+    <mat-error [innerHTML]="customControlError.key"></mat-error>
+  }
+</ng-template>

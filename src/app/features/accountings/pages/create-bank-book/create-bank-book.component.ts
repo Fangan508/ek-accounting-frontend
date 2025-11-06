@@ -3,6 +3,8 @@ import { CreateBankBookStepComponent } from "../../components/create-bank-book/c
 import { CreateBankBookStepperComponent } from "../../components/create-bank-book/create-bank-book-stepper/create-bank-book-stepper.component";
 import { CreateBankBookActionsComponent } from "../../components/create-bank-book/create-bank-book-actions/create-bank-book-actions.component";
 import { CommonModule } from '@angular/common';
+import { CreateBankBookFacade } from '../../state/create-bank-book/create-bank-book.facade';
+import { CreateBankBookStep } from '../../state/create-bank-book/create-bank-book.state';
 
 @Component({
   selector: 'ek-create-bank-book',
@@ -11,5 +13,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './create-bank-book.component.scss'
 })
 export class CreateBankBookComponent {
+  readonly currentStep = this._createBankBookFacade.signalSelectors.currentStep;
+  readonly CreateBankBookStep = CreateBankBookStep;
 
+  constructor(private readonly _createBankBookFacade: CreateBankBookFacade) {}
 }
