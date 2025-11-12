@@ -1,13 +1,23 @@
 <mat-form-field>
   <mat-label>{{ label }}</mat-label>
-  <input matInput [formControl]="control">
-  <ng-container *ngTemplateOutlet="error"></ng-container>
-</mat-form-field>
+  <input matInput 
+    [formControl]="control"
+    [ngClass]="customClass"
+    [maxlength]="maxLength"
+    (blur)="inputBlur.emit()">
 
-<ng-template #error>
   @if (!customControlError && control.errors && control.touched) {
     <mat-error>{{ control.errors | formFieldError }}</mat-error>
   } @else if (customControlError && control.errors) {
     <mat-error [innerHTML]="customControlError.key"></mat-error>
   }
-</ng-template>
+   
+</mat-form-field>
+
+<!-- <ng-template #error>
+  @if (!customControlError && control.errors && control.touched) {
+    <mat-error>{{ control.errors | formFieldError }}</mat-error>
+  } @else if (customControlError && control.errors) {
+    <mat-error [innerHTML]="customControlError.key"></mat-error>
+  }
+</ng-template> -->
