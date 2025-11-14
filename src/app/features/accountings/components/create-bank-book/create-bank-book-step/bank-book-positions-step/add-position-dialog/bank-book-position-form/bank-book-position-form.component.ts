@@ -4,9 +4,11 @@ import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank
 import { DatepickerFormFieldComponent } from '@ek/shared/components/form-fields/datepicker-form-field/datepicker-form-field.component';
 import { BankBookPositionTitleComponent } from "./bank-book-position-title/bank-book-position-title.component";
 
+import { BankBookPositionAmountComponent } from "./bank-book-position-amount/bank-book-position-amount.component";
+
 @Component({
   selector: 'ek-bank-book-position-form',
-  imports: [DatepickerFormFieldComponent, BankBookPositionTitleComponent],
+  imports: [DatepickerFormFieldComponent, BankBookPositionTitleComponent, BankBookPositionAmountComponent],
   templateUrl: './bank-book-position-form.component.html',
   styleUrl: './bank-book-position-form.component.scss'
 })
