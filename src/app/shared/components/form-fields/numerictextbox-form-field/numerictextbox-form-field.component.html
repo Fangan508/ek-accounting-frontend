@@ -1,0 +1,17 @@
+<mat-form-field>
+  <mat-label></mat-label>
+  <input matInput 
+    [formControl]="control"
+    [ngClass]="customClass"
+    type="number"
+    [min]="min"
+    [max]="max"
+    (blur)="inputBlur.emit()">
+
+  @if (!customControlError && control.errors && control.touched) {
+    <mat-error>{{ control.errors | formFieldError }}</mat-error>
+  } @else if (customControlError && control.errors) {
+    <mat-error [innerHTML]="customControlError.key"></mat-error>
+  }
+   
+</mat-form-field>

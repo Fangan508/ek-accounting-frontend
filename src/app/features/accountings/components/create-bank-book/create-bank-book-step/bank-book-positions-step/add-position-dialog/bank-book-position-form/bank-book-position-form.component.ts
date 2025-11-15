@@ -5,10 +5,11 @@ import { DatepickerFormFieldComponent } from '@ek/shared/components/form-fields/
 import { BankBookPositionTitleComponent } from "./bank-book-position-title/bank-book-position-title.component";
 
 import { BankBookPositionAmountComponent } from "./bank-book-position-amount/bank-book-position-amount.component";
+import { BankBookPosDocNumberComponent } from "./bank-book-pos-doc-number/bank-book-pos-doc-number.component";
 
 @Component({
   selector: 'ek-bank-book-position-form',
-  imports: [DatepickerFormFieldComponent, BankBookPositionTitleComponent, BankBookPositionAmountComponent],
+  imports: [DatepickerFormFieldComponent, BankBookPositionTitleComponent, BankBookPositionAmountComponent, BankBookPosDocNumberComponent],
   templateUrl: './bank-book-position-form.component.html',
   styleUrl: './bank-book-position-form.component.scss'
 })
