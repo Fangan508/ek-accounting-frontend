@@ -1,8 +1,8 @@
-<ek-bank-book-pos-doc-number></ek-bank-book-pos-doc-number>
-<ek-datepicker-form-field 
-  label="Datum auswählen"
-  [customControlError]="{ key: bankBookPositionDateError()}"
-  (hasError)="onBankBookPositionDateError($event)"/>
+<form [formGroup]="form">
+  <ek-datepicker-form-field formControlName="date"></ek-datepicker-form-field>
+  <!-- <ek-bank-book-position-title formControlName="text"></ek-bank-book-position-title> -->
 
-<ek-bank-book-position-title></ek-bank-book-position-title>
-<ek-bank-book-position-amount></ek-bank-book-position-amount>
+  <ek-textbox-form-field label="" formControlName="text"/>
+
+  <ek-bank-book-position-amount [formGroup]="form.controls.amount"></ek-bank-book-position-amount>
+</form>

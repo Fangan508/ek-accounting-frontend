@@ -1,29 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Form, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { eitherOrValidator } from '@ek/shared/validators/either-or.validator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TextboxFormFieldComponent } from '@ek/shared/components/form-fields/textbox-form-field/textbox-form-field.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'ek-bank-book-position-amount',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, TextboxFormFieldComponent],
+  imports: [ReactiveFormsModule, MatRadioModule, TextboxFormFieldComponent],
   templateUrl: './bank-book-position-amount.component.html',
   styleUrl: './bank-book-position-amount.component.scss'
 })
 export class BankBookPositionAmountComponent {
-  readonly formGroup = new FormGroup({ 
-    credit: new FormControl<string>('0.00', []),
-    debit: new FormControl<string>('0.00', []),
-  });
+  @Input() formGroup!: FormGroup;
 
-  readonly formControl = new FormControl<string>('', []);
+  creditControl = new FormControl<number>(0);
+  debitControl = new FormControl<number>(0);
+
+  // get creditControl(): FormControl {
+  //   return this.formGroup.get('credit') as FormControl;
+  // }
+
+  // get debitControl(): FormControl {
+  //   return this.formGroup.get('debit') as FormControl;
+  // }
 
   ngOnInit(): void {
-    const debit = '0.00';
-    const credit = '0.00';  
+    // if (this.formGroup) {
+    //   this.formGroup.addValidators(eitherOrValidator('credit', 'debit'));
+    // }
 
-    this.formControl.patchValue(debit, { emitEvent: false } );
-    this.formControl.patchValue(credit, { emitEvent: false } );
+    if (!this.formGroup) {
+      throw new Error('formGroup input is required');
+    }
   }
 }

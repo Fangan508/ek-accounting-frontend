@@ -14,6 +14,7 @@ export class BankBooksStateModel {
   details!: StateMetadata<GetBankBookPositionDto[]>;
   request!: BankBooksRequest;
   selectedBankBook?: GetBankBookDto;
+  addedBankBookPositions?: GetBankBookPositionDto[];
 }
 
 const initialBankBooksState = {

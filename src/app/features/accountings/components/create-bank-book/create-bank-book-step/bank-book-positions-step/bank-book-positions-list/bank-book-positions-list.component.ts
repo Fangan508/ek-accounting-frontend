@@ -1,16 +1,27 @@
-import { Component, Input } from '@angular/core';
+import { Component, computed, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 
 @Component({
   selector: 'ek-bank-book-positions-list',
-  imports: [AgGridModule],
+  imports: [AgGridModule, CommonModule],
   templateUrl: './bank-book-positions-list.component.html',
   styleUrl: './bank-book-positions-list.component.scss'
 })
-export class BankBookPositionsListComponent {
-  // start with an empty grid
-  rowData: any[] = [];
+export class BankBookPositionsListComponent implements OnInit {
+  bankBookPositions = this._createBankBookFacade.signalSelectors.bankBookPositions;
+
+  // rowData = computed(() => this.bankBookPositions().metadata ?? []);
+
+  rowData = computed(() => {
+
+
+    const positions = this.bankBookPositions();
+    console.log('Bank Book Positions:', positions);
+    return positions?.metadata ?? [];
+  });
 
   columnDefs: ColDef[] = [
     { field: 'documentNumber', headerName: 'Beleg' },
@@ -31,8 +42,9 @@ export class BankBookPositionsListComponent {
     flex: 1
   };
 
-  // allow parent to provide data later
-  @Input() set positions(value: any[] | null | undefined) {
-    this.rowData = value ?? [];
+  constructor(private readonly _createBankBookFacade: CreateBankBookFacade) {}
+
+  ngOnInit(): void {
+    this._createBankBookFacade.actions.loadBankBookPositions(); 
   }
 }

@@ -10,7 +10,7 @@ import { TextboxFormFieldComponent } from '@ek/shared/components/form-fields/tex
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BankBookPositionTitleComponent implements OnInit {
-  readonly formControl = new FormControl<string>('', [Validators.required, Validators.min(1), Validators.maxLength(120)]);
+  formControl = new FormControl<string>('', [Validators.required, Validators.min(1), Validators.maxLength(120)]);
 
 
   ngOnInit(): void {

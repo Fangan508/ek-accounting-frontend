@@ -3,21 +3,28 @@ import { createDispatchMap, createSelectMap, select, Store } from "@ngxs/store";
 import { CreateBankBookState } from "./create-bank-book.state";
 import { CreateBankBookActions } from "./create-bank-book.actions";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CreateBankBookFacade {
   readonly currentStep$ = this._store.select(CreateBankBookState.currentStep);
 
   readonly signalSelectors = createSelectMap({
-    // General
+    // General Step
     currentStep: select(CreateBankBookState.currentStep),
-    isValidStep: select(CreateBankBookState.isValidStep)
+    isValidStep: select(CreateBankBookState.isValidStep),
+
+    // Bank Book Positions Step
+    bankBookPositions: select(CreateBankBookState.bankBookPositions)
   });
 
   readonly actions = createDispatchMap({
-    // General
+    // General Step
     setCurrentStep: CreateBankBookActions.SetCurrentStep,
     setIsValidForm: CreateBankBookActions.SetIsValidForm,
-    clearState: CreateBankBookActions.ClearState
+    clearState: CreateBankBookActions.ClearState,
+
+    // Bank Book Positions Step
+    loadBankBookPositions: CreateBankBookActions.LoadBankBookPositions,
+    addBankBookPosition: CreateBankBookActions.AddBankBookPosition
   });
 
   constructor(private readonly _store: Store) {}

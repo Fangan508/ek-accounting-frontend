@@ -1,2 +1,6 @@
 <h4>Position hinzufügen</h4>
-<ek-bank-book-position-form></ek-bank-book-position-form>
+<ek-bank-book-position-form (positionChange)="onPositionChange($event)"></ek-bank-book-position-form>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onClose()">Abbrechen</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onAdd()">Hinzufügen</button>  
+</mat-dialog-actions>
