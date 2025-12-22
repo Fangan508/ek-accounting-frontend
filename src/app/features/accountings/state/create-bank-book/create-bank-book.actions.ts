@@ -1,3 +1,4 @@
+import { BankBookPositionConfig } from "../../models/bank-book-position-config.model";
 import { BankBookPosition } from "../../models/bank-book-position.model";
 
 export namespace CreateBankBookActions {
@@ -31,5 +32,10 @@ export namespace CreateBankBookActions {
   export class AddBankBookPosition {
     static readonly type = '[CreateBankBook Actions] Add Bank Book Position';
     constructor(public readonly bankBookPosition: BankBookPosition) {}
+  }
+
+  export class SetBankBookPositionConfig {
+    static readonly type = '[CreateBankBook Actions] Set Bank Book Position Config';
+    constructor(public readonly config: BankBookPositionConfig) {}
   }
 }

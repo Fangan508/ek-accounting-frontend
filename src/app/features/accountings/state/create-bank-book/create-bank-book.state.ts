@@ -4,6 +4,7 @@ import { StateMetadata } from '@ek/shared/models/state-metadata.model';
 import { current, produce } from "immer";
 import { CreateBankBookActions } from "./create-bank-book.actions";
 import { BankBookPosition } from "../../models/bank-book-position.model";
+import { BankBookPositionConfig } from "../../models/bank-book-position-config.model";
 
 export enum CreateBankBookStep {
   General,
@@ -15,11 +16,21 @@ export class CreateBankBookStateModel {
   isValidForm!: boolean;
   bankBookPositions!: StateMetadata<BankBookPosition[]>;
   addedBankBookPositions!: BankBookPosition[];
+  bankBookPositionConfig!: BankBookPositionConfig;
 }
+
+const initialBankBookPositionConfig: BankBookPositionConfig = {
+  documentNumber: 0,
+  bookingdate: new Date(),
+  description: '',
+  credit: 0,
+  debit: 0
+};
 
 const initialState = {
   currentStep: CreateBankBookStep.General,
   isValidForm: true,
+  bankBookPositionConfig: initialBankBookPositionConfig,
   bankBookPositions: {
     loading: false,
     total: 0,
@@ -50,6 +61,25 @@ export class CreateBankBookState {
     switch(state.currentStep) {
       case CreateBankBookStep.General:
         isValidStep = true;
+        break;
+      case CreateBankBookStep.Positions:
+        const {
+          documentNumber,
+          bookingdate,
+          description,
+          credit,
+          debit
+        } = state.bankBookPositionConfig ?? initialState.bankBookPositionConfig;
+
+        console.log('Date in isValidStep selector:', bookingdate);
+
+        const documentNumberCheck = documentNumber > 0;
+        const bookingDateCheck = bookingdate !== null && bookingdate !== undefined && bookingdate <= new Date() && bookingdate > new Date('1900-01-01');
+        const descriptionCheck = description.trim().length > 3;
+        const creditCheck = credit > 0;
+        const debitCheck = debit > 0;
+
+        isValidStep = documentNumberCheck && bookingDateCheck && descriptionCheck;
         break;
       default:
         isValidStep = true;
@@ -143,5 +173,15 @@ export class CreateBankBookState {
         draft.bankBookPositions.loading = false;
       })
     );
+  }
+
+  @Action(CreateBankBookActions.SetBankBookPositionConfig)
+  setBankBookPositionConfig( 
+    { patchState }: StateContext<CreateBankBookStateModel>,
+    { config }: CreateBankBookActions.SetBankBookPositionConfig
+  ): void {
+    patchState({
+      bankBookPositionConfig: config
+    });
   }
 }

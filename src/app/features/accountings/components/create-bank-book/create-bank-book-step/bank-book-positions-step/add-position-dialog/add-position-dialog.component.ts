@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, computed } from '@angular/core';
 import { BankBookPositionFormComponent } from './bank-book-position-form/bank-book-position-form.component';
 import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -14,6 +14,10 @@ export class AddPositionDialogComponent {
   @ViewChild(BankBookPositionFormComponent) private formComponent!: BankBookPositionFormComponent;
 
   private _currentPosition!: BankBookPosition;
+  readonly isValidStep = computed(() => {
+    return this._createBankBookFacade.signalSelectors.isValidStep();
+  });
+
 
   constructor(
     private readonly _dialog: MatDialog,

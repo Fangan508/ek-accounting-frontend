@@ -1,5 +1,5 @@
 <div>
-  <form [formGroup]="form">
+  <form [formGroup]="bankBookPositionForm">
     <ek-numerictextbox-form-field
       label="Belegnummer"
       formControlName="documentNumber"
@@ -10,7 +10,7 @@
 
     <ek-textbox-form-field label="Bezeichnung" formControlName="text"/>
 
-    <ek-bank-book-position-amount [formGroup]="form.controls.amount"></ek-bank-book-position-amount>
+    <ek-bank-book-position-amount [formGroup]="bankBookPositionForm.controls.amount"></ek-bank-book-position-amount>
   </form>
 </div>
 
