@@ -16,8 +16,8 @@ import { MatRadioModule } from '@angular/material/radio';
 export class BankBookPositionAmountComponent {
   @Input() formGroup!: FormGroup;
 
-  creditControl = new FormControl<number>(0);
-  debitControl = new FormControl<number>(0);
+  creditControl = new FormControl<number | null>(null);
+  debitControl = new FormControl<number | null>(null);
 
   // get creditControl(): FormControl {
   //   return this.formGroup.get('credit') as FormControl;

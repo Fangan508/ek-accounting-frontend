@@ -32,6 +32,7 @@ import { MAX_NUMERIC_VALUE, MIN_NUMERIC_VALUE } from '../utils/form-fields.utils
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NumerictextboxFormFieldComponent extends AbstractInputControlDirective<FormControl> implements OnInit {
+  @Input() label = '';
   @Input() customClass?: string;
   @Input() min = MIN_NUMERIC_VALUE;
   @Input() max = MAX_NUMERIC_VALUE;

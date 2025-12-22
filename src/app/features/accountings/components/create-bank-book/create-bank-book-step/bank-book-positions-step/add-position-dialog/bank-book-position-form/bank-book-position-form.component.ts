@@ -7,10 +7,11 @@ import { TextboxFormFieldComponent } from '@ek/shared/components/form-fields/tex
 import { BankBookPositionAmountComponent } from "./bank-book-position-amount/bank-book-position-amount.component";
 import { BankBookPosDocNumberComponent } from "./bank-book-pos-doc-number/bank-book-pos-doc-number.component";
 import { BankBookPosition } from '@ek/features/accountings/models/bank-book-position.model';
+import { NumerictextboxFormFieldComponent } from "@ek/shared/components/form-fields/numerictextbox-form-field/numerictextbox-form-field.component";
 
 @Component({
   selector: 'ek-bank-book-position-form',
-  imports: [TextboxFormFieldComponent, DatepickerFormFieldComponent, BankBookPositionAmountComponent, BankBookPosDocNumberComponent, ReactiveFormsModule],
+  imports: [TextboxFormFieldComponent, DatepickerFormFieldComponent, BankBookPositionAmountComponent, BankBookPosDocNumberComponent, ReactiveFormsModule, NumerictextboxFormFieldComponent],
   templateUrl: './bank-book-position-form.component.html',
   styleUrl: './bank-book-position-form.component.scss'
 })
@@ -20,6 +21,7 @@ export class BankBookPositionFormComponent {
   @Output() positionChange = new EventEmitter<BankBookPosition>();
 
 form = new FormGroup({
+    documentNumber: new FormControl('', Validators.required),  // For document number
     date: new FormControl('', Validators.required),
     text: new FormControl('', Validators.required),  // For title
     amount: new FormGroup({

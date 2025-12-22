@@ -1,8 +1,17 @@
-<form [formGroup]="form">
-  <ek-datepicker-form-field formControlName="date"></ek-datepicker-form-field>
-  <!-- <ek-bank-book-position-title formControlName="text"></ek-bank-book-position-title> -->
+<div>
+  <form [formGroup]="form">
+    <ek-numerictextbox-form-field
+      label="Belegnummer"
+      formControlName="documentNumber"
+      />
 
-  <ek-textbox-form-field label="" formControlName="text"/>
+    <ek-datepicker-form-field formControlName="date" label="Buchungsdatum"></ek-datepicker-form-field>
+    <!-- <ek-bank-book-position-title formControlName="text"></ek-bank-book-position-title> -->
 
-  <ek-bank-book-position-amount [formGroup]="form.controls.amount"></ek-bank-book-position-amount>
-</form>
+    <ek-textbox-form-field label="Bezeichnung" formControlName="text"/>
+
+    <ek-bank-book-position-amount [formGroup]="form.controls.amount"></ek-bank-book-position-amount>
+  </form>
+</div>
+
+
