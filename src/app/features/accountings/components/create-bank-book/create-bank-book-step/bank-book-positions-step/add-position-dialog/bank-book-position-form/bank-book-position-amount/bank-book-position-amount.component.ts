@@ -33,7 +33,7 @@ export class BankBookPositionAmountComponent {
     // }
 
     if (!this.formGroup) {
-      throw new Error('formGroup input is required');
+      // throw new Error('formGroup input is required');
     }
   }
 }

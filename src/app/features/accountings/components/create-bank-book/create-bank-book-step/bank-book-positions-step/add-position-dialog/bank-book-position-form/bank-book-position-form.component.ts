@@ -29,7 +29,9 @@ export class BankBookPositionFormComponent implements OnInit {
     amount: new FormGroup({
       credit: new FormControl(0),  // For credit amount
       debit: new FormControl(0)    // For debit amount
-    })
+    }),
+    credit: new FormControl<number | null>(null),
+    debit: new FormControl<number | null>(null)
   });
 
   constructor(private readonly _createBankBookFacade: CreateBankBookFacade) {}
@@ -44,10 +46,10 @@ export class BankBookPositionFormComponent implements OnInit {
       const position: BankBookPosition = {
         date: formValue.date,
         text: formValue.text,
-        credit: formValue.amount?.credit || 0,
-        debit: formValue.amount?.debit || 0,
+        credit: formValue.credit || 0,
+        debit: formValue.debit || 0,
         description: formValue.text,
-        amount: (formValue.amount?.credit || 0) - (formValue.amount?.debit || 0),
+        amount: 0,
         bookingDate: formValue.date,
         account: '',
         balance: 0,

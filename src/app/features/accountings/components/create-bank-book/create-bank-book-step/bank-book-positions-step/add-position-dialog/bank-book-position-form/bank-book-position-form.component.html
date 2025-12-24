@@ -10,7 +10,18 @@
 
     <ek-textbox-form-field label="Bezeichnung" formControlName="text"/>
 
-    <ek-bank-book-position-amount [formGroup]="bankBookPositionForm.controls.amount"></ek-bank-book-position-amount>
+    <!-- <ek-bank-book-position-amount [formGroup]="bankBookPositionForm.controls.amount"></ek-bank-book-position-amount> -->
+    <!-- <ek-bank-book-position-amount formControlName="credit"></ek-bank-book-position-amount> -->
+
+    <ek-textbox-form-field 
+      label="Credit" 
+      formControlName="credit"
+      type="number" />
+
+    <ek-textbox-form-field 
+      label="Debit" 
+      formControlName="debit"
+      type="number" />
   </form>
 </div>
 

@@ -20,7 +20,11 @@ export class BankBookPositionsListComponent implements OnInit {
 
     const positions = this.bankBookPositions();
     console.log('Bank Book Positions:', positions);
-    return positions?.metadata ?? [];
+    return (positions?.metadata ?? []).map(position => ({
+      ...position,
+      credit: Number(position.credit) || 0,
+      debit: Number(position.debit) || 0
+    }));
   });
 
   columnDefs: ColDef[] = [
@@ -28,9 +32,9 @@ export class BankBookPositionsListComponent implements OnInit {
     { field: 'bookingDate', headerName: 'Datum', width: 100, valueFormatter: params => this.formatDateDE(params.value) },
     { field: 'account', headerName: 'Konto', width: 100 },
     { field: 'text', headerName: 'Text', width: 300 },
-    { field: 'credit', headerName: 'Haben', width: 100 },
-    { field: 'debit', headerName: 'Soll', width: 100 },
-    { field: 'balance', headerName: 'Saldo', width: 100 },
+    { field: 'credit', headerName: 'Haben', width: 100, valueFormatter: params => this.formatNumberDE(params.value) },
+    { field: 'debit', headerName: 'Soll', width: 100, valueFormatter: params => this.formatNumberDE(params.value) },
+    { field: 'balance', headerName: 'Saldo', width: 100, valueFormatter: params => this.formatNumberDE(params.value) },
     { field: 'counterAccount', headerName: 'Gegenkonto', width: 100 }
   ];
 
@@ -57,5 +61,10 @@ export class BankBookPositionsListComponent implements OnInit {
       return ''; 
     
     return d.toLocaleDateString('de-DE'); // → dd.MM.yyyy 
+  }
+
+  formatNumberDE(value: any): string {
+    if (value == null || isNaN(value)) return '';
+    return Number(value).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 }
