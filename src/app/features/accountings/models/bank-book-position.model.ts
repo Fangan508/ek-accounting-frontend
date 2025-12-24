@@ -3,7 +3,7 @@ export interface BankBookPosition {
   description: string | null | undefined;
   amount: number;
   bookingDate: Date | null | undefined;
-  documentNumber?: string;
+  documentNumber?: number;
   date: Date | null | undefined;
   account: string;
   text: string | null | undefined;

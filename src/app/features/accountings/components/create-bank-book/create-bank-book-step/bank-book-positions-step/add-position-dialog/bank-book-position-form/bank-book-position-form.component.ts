@@ -52,7 +52,7 @@ export class BankBookPositionFormComponent implements OnInit {
         account: '',
         balance: 0,
         counterAccount: '',
-        documentNumber: ''
+        documentNumber: formValue.documentNumber || 0
       };
 
       console.log("Position:", position);

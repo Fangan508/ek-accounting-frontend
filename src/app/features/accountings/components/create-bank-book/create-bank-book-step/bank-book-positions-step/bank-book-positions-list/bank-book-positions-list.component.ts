@@ -24,14 +24,14 @@ export class BankBookPositionsListComponent implements OnInit {
   });
 
   columnDefs: ColDef[] = [
-    { field: 'documentNumber', headerName: 'Beleg' },
-    { field: 'date', headerName: 'Datum' },
-    { field: 'account', headerName: 'Konto' },
-    { field: 'text', headerName: 'Text' },
-    { field: 'credit', headerName: 'Haben' },
-    { field: 'debit', headerName: 'Soll' },
-    { field: 'balance', headerName: 'Saldo' },
-    { field: 'counterAccount', headerName: 'Gegenkonto' }
+    { field: 'documentNumber', headerName: 'Beleg', width: 70 },
+    { field: 'bookingDate', headerName: 'Datum', width: 100, valueFormatter: params => this.formatDateDE(params.value) },
+    { field: 'account', headerName: 'Konto', width: 100 },
+    { field: 'text', headerName: 'Text', width: 300 },
+    { field: 'credit', headerName: 'Haben', width: 100 },
+    { field: 'debit', headerName: 'Soll', width: 100 },
+    { field: 'balance', headerName: 'Saldo', width: 100 },
+    { field: 'counterAccount', headerName: 'Gegenkonto', width: 100 }
   ];
 
   defaultColDef: ColDef = {
@@ -46,5 +46,16 @@ export class BankBookPositionsListComponent implements OnInit {
 
   ngOnInit(): void {
     this._createBankBookFacade.actions.loadBankBookPositions(); 
+  }
+
+  formatDateDE(date: any): string { 
+    if (!date) return ''; 
+    
+    const d = new Date(date); 
+    
+    if (isNaN(d.getTime())) 
+      return ''; 
+    
+    return d.toLocaleDateString('de-DE'); // → dd.MM.yyyy 
   }
 }
