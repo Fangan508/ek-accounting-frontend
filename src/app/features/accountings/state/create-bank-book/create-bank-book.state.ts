@@ -63,23 +63,7 @@ export class CreateBankBookState {
         isValidStep = true;
         break;
       case CreateBankBookStep.Positions:
-        const {
-          documentNumber,
-          bookingdate,
-          description,
-          credit,
-          debit
-        } = state.bankBookPositionConfig ?? initialState.bankBookPositionConfig;
-
-        console.log('Date in isValidStep selector:', bookingdate);
-
-        const documentNumberCheck = documentNumber > 0;
-        const bookingDateCheck = bookingdate !== null && bookingdate !== undefined && bookingdate <= new Date() && bookingdate > new Date('1900-01-01');
-        const descriptionCheck = description.trim().length > 3;
-        const creditCheck = credit > 0;
-        const debitCheck = debit > 0;
-
-        isValidStep = documentNumberCheck && bookingDateCheck && descriptionCheck;
+        isValidStep = (state.bankBookPositions.metadata?.length ?? 0) > 0;
         break;
       default:
         isValidStep = true;

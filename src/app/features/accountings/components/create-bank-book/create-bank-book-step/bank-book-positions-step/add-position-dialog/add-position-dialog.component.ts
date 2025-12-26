@@ -3,6 +3,7 @@ import { BankBookPositionFormComponent } from './bank-book-position-form/bank-bo
 import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BankBookPosition } from '@ek/features/accountings/models/bank-book-position.model';
+import { signal } from '@angular/core';
 
 @Component({
   selector: 'ek-add-position-dialog',
@@ -18,6 +19,7 @@ export class AddPositionDialogComponent {
     return this._createBankBookFacade.signalSelectors.isValidStep();
   });
 
+  isFormValid = signal(false);
 
   constructor(
     private readonly _dialog: MatDialog,
@@ -42,4 +44,8 @@ export class AddPositionDialogComponent {
   onPositionChange(position: BankBookPosition): void {
     this._currentPosition = position;
   }
+
+  onValidityChange(isValid: boolean): void {
+    this.isFormValid.set(isValid);
+  } 
 }

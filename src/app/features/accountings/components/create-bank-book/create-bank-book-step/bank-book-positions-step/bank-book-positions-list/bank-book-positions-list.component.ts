@@ -63,8 +63,21 @@ export class BankBookPositionsListComponent implements OnInit {
     return d.toLocaleDateString('de-DE'); // → dd.MM.yyyy 
   }
 
-  formatNumberDE(value: any): string {
-    if (value == null || isNaN(value)) return '';
-    return Number(value).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  formatNumberDE(value: any): string { 
+    if (value === null || value === undefined) return ''; 
+    
+    console.log('value:', value);
+    const normalized = String(value).replace(',', '.');
+    
+    const num = Number(normalized); 
+    
+    if (isNaN(num)) return ''; 
+    
+    console.log('Normalizing value:', normalized);
+
+    return num.toLocaleString('de-DE', { 
+      minimumFractionDigits: 2, 
+      maximumFractionDigits: 2 
+    }); 
   }
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, signal, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
 import { DatepickerFormFieldComponent } from '@ek/shared/components/form-fields/datepicker-form-field/datepicker-form-field.component';
 import { BankBookPositionTitleComponent } from "./bank-book-position-title/bank-book-position-title.component";
@@ -21,11 +21,12 @@ export class BankBookPositionFormComponent implements OnInit {
   bankBookPositionDateError = signal<string>('');
 
   @Output() positionChange = new EventEmitter<BankBookPosition>();
+  @Output() validityChange = new EventEmitter<boolean>();
 
   bankBookPositionForm = new FormGroup({
-    documentNumber: new FormControl<number>(0, Validators.required),  // For document number
-    date: new FormControl<Date>(new Date(), Validators.required),
-    text: new FormControl('', Validators.required),  // For title
+    documentNumber: new FormControl<number>(0, [Validators.required, Validators.min(1)]),  // For document number
+    date: new FormControl<Date>(new Date(), [Validators.required, this.dateValidator]),  // For date
+    text: new FormControl('', [Validators.required, Validators.minLength(4)]),  // For title
     amount: new FormGroup({
       credit: new FormControl(0),  // For credit amount
       debit: new FormControl(0)    // For debit amount
@@ -68,6 +69,13 @@ export class BankBookPositionFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateConfig();
+
+    this.bankBookPositionForm.statusChanges.pipe(untilDestroyed(this)).subscribe(() => {
+      this.validityChange.emit(this.bankBookPositionForm.valid);
+    });
+
+    // Emit initial validity
+    this.validityChange.emit(this.bankBookPositionForm.valid);
   }
 
   onBankBookPositionDateError(error: ValidationErrors | null): void {
@@ -95,5 +103,21 @@ export class BankBookPositionFormComponent implements OnInit {
         debit: amount?.debit || 0
       });
     });
+  }
+
+  private dateValidator(control: AbstractControl<Date>): ValidationErrors | null {
+    const value = control.value;
+
+    if (!value) return null;
+
+    const date = new Date(value);
+    const now = new Date();
+    const minDate = new Date('1900-01-01');
+
+    if (date > now || date < minDate) {
+      return { invalidDate: true };
+    }
+
+    return null;
   }
 }
