@@ -12,6 +12,7 @@ import { CreateBankBookStep } from '@ek/features/accountings/state/create-bank-b
 export class CreateBankBookActionsComponent {
   readonly currentStep = this._createBankBookFacade.signalSelectors.currentStep;
   readonly isFirstStep = computed(() => this.currentStep() === CreateBankBookStep.General);
+  readonly isLastStep = computed(() => this.currentStep() === CreateBankBookStep.Completion);
   readonly isValidStep = computed(() => { return this._createBankBookFacade.signalSelectors.isValidStep(); });
   readonly CreateBankBookStep = CreateBankBookStep;
 
