@@ -12,7 +12,8 @@ import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank
 export class CreateBankBookStepperComponent {
   steps = [
     { label: 'Allgemeines' },
-    { label: 'Positionen' }
+    { label: 'Positionen' },
+    { label: 'Abschluss' }
   ];
 
   readonly currentStep = this._createBankBookFacade.signalSelectors.currentStep;

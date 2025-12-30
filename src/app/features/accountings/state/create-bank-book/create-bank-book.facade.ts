@@ -13,7 +13,10 @@ export class CreateBankBookFacade {
     isValidStep: select(CreateBankBookState.isValidStep),
 
     // Bank Book Positions Step
-    bankBookPositions: select(CreateBankBookState.bankBookPositions)
+    bankBookPositions: select(CreateBankBookState.bankBookPositions),
+
+    // Completion Step
+    bankBookTitle: select(CreateBankBookState.bankBookTitle)
   });
 
   readonly actions = createDispatchMap({
@@ -25,7 +28,10 @@ export class CreateBankBookFacade {
     // Bank Book Positions Step
     loadBankBookPositions: CreateBankBookActions.LoadBankBookPositions,
     addBankBookPosition: CreateBankBookActions.AddBankBookPosition,
-    setBankBookPositionConfig: CreateBankBookActions.SetBankBookPositionConfig
+    setBankBookPositionConfig: CreateBankBookActions.SetBankBookPositionConfig,
+
+    // Completion Step
+    setBankBookTitle: CreateBankBookActions.SetBankBookTitle
   });
 
   constructor(private readonly _store: Store) {}

@@ -38,4 +38,10 @@ export namespace CreateBankBookActions {
     static readonly type = '[CreateBankBook Actions] Set Bank Book Position Config';
     constructor(public readonly config: BankBookPositionConfig) {}
   }
+
+  // Completion Step
+  export class SetBankBookTitle {
+    static readonly type = '[CreateBankBook Actions] Set Bank Book Title';
+    constructor(public readonly title: string) {}
+  }
 }

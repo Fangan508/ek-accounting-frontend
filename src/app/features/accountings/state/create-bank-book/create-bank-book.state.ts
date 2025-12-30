@@ -8,7 +8,8 @@ import { BankBookPositionConfig } from "../../models/bank-book-position-config.m
 
 export enum CreateBankBookStep {
   General,
-  Positions
+  Positions,
+  Completion
 }
 
 export class CreateBankBookStateModel {
@@ -17,6 +18,7 @@ export class CreateBankBookStateModel {
   bankBookPositions!: StateMetadata<BankBookPosition[]>;
   addedBankBookPositions!: BankBookPosition[];
   bankBookPositionConfig!: BankBookPositionConfig;
+  bankBookTitle!: string;
 }
 
 const initialBankBookPositionConfig: BankBookPositionConfig = {
@@ -36,7 +38,8 @@ const initialState = {
     total: 0,
     metadata: []
   },
-  addedBankBookPositions: []
+  addedBankBookPositions: [],
+  bankBookTitle: ''
 };
 
 
@@ -65,6 +68,9 @@ export class CreateBankBookState {
       case CreateBankBookStep.Positions:
         isValidStep = (state.bankBookPositions.metadata?.length ?? 0) > 0;
         break;
+      case CreateBankBookStep.Completion:
+        isValidStep = state.bankBookTitle !== '';
+        break;
       default:
         isValidStep = true;
         break;
@@ -79,7 +85,13 @@ export class CreateBankBookState {
     return state.bankBookPositions ?? initialState.bankBookPositions;
   }
 
-  // General
+  // Completion Step Selectors
+  @Selector()
+  static bankBookTitle(state: CreateBankBookStateModel): string {
+    return state.bankBookTitle ?? initialState.bankBookTitle;
+  }
+
+  // General Actions
   @Action(CreateBankBookActions.SetCurrentStep)
   setCurrentStep({ patchState }: StateContext<CreateBankBookStateModel>, { step }: CreateBankBookActions.SetCurrentStep): void {
     patchState({
@@ -99,7 +111,7 @@ export class CreateBankBookState {
     patchState(initialState);
   }
 
-  // Bank Book Positions Step
+  // Bank Book Positions Step Actions
   @Action(CreateBankBookActions.LoadBankBookPositions)
   loadBankBookPositions({ getState, setState, dispatch }: StateContext<CreateBankBookStateModel>): void {
     setState(
@@ -166,6 +178,17 @@ export class CreateBankBookState {
   ): void {
     patchState({
       bankBookPositionConfig: config
+    });
+  }
+
+  // Completion Step
+  @Action(CreateBankBookActions.SetBankBookTitle)
+  setBankBookTitle(
+    { patchState }: StateContext<CreateBankBookStateModel>,
+    { title }: CreateBankBookActions.SetBankBookTitle
+  ): void {
+    patchState({
+      bankBookTitle: title
     });
   }
 }

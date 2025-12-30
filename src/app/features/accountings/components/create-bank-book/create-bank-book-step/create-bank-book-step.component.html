@@ -6,7 +6,11 @@
       <ek-general-step />
     } @case (CreateBankBookStep.Positions) {
       <ek-bank-book-positions-step />
-    } @default {
+    } @case (CreateBankBookStep.Completion) {
+      <ek-completion-step />
+    } 
+    
+    @default {
       <ek-general-step />
     } 
   } 

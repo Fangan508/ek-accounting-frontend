@@ -4,10 +4,11 @@ import { CreateBankBookStep } from '@ek/features/accountings/state/create-bank-b
 import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
 import { CommonModule } from '@angular/common';
 import { BankBookPositionsStepComponent } from "./bank-book-positions-step/bank-book-positions-step.component";
+import { CompletionStepComponent } from './completion-step/completion-step.component';
 
 @Component({
   selector: 'ek-create-bank-book-step',
-  imports: [CommonModule, GeneralStepComponent, BankBookPositionsStepComponent],
+  imports: [CommonModule, GeneralStepComponent, BankBookPositionsStepComponent, CompletionStepComponent],
   templateUrl: './create-bank-book-step.component.html',
   styleUrl: './create-bank-book-step.component.scss'
 })
