@@ -1,0 +1,8 @@
+<mat-form-field>
+  <mat-label>Speichern und exportieren</mat-label>
+  <mat-select>
+    @for (option of exportMenuOptions; track $index) {
+      <mat-option [value]="option.value">{{ option.label }}</mat-option>
+    } 
+  </mat-select>
+</mat-form-field>

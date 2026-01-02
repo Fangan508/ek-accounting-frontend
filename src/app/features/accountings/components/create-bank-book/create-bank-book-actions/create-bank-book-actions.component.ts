@@ -2,10 +2,11 @@ import { Component, computed } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
 import { CreateBankBookStep } from '@ek/features/accountings/state/create-bank-book/create-bank-book.state';
+import { SaveExportDropdownbuttonComponent } from './save-export-dropdownbutton/save-export-dropdownbutton.component';
 
 @Component({
   selector: 'ek-create-bank-book-actions',
-  imports: [MatButtonModule],
+  imports: [MatButtonModule, SaveExportDropdownbuttonComponent],
   templateUrl: './create-bank-book-actions.component.html',
   styleUrl: './create-bank-book-actions.component.scss'
 })

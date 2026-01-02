@@ -2,13 +2,7 @@
   <button mat-button style="border-radius: 0;">Abbrechen</button>
   <button mat-stroked-button style="border-radius: 0;" [disabled]="isFirstStep()" (click)="onBack()">Zurück</button>
   @if (isLastStep()) {
-    <button 
-      mat-flat-button 
-      color="primary" 
-      style="border-radius: 0;" 
-      [disabled]="!isValidStep()" 
-      >Erstellen
-    </button>
+    <ek-save-export-dropdownbutton />
   } @else {
     <button 
       mat-flat-button 
