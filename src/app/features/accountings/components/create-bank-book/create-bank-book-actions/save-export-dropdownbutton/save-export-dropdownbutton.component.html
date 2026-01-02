@@ -1,8 +1,16 @@
-<mat-form-field>
-  <mat-label>Speichern und exportieren</mat-label>
-  <mat-select>
-    @for (option of exportMenuOptions; track $index) {
-      <mat-option [value]="option.value">{{ option.label }}</mat-option>
-    } 
-  </mat-select>
-</mat-form-field>
+<button class="export-button" mat-flat-button [matMenuTriggerFor]="exportMenu"> 
+  Speichern und exportieren
+  <span class="gap-span">|</span>
+  <span>
+    <mat-icon class="expand-icon">expand_more</mat-icon>
+  </span>
+  
+</button> 
+
+<mat-menu #exportMenu="matMenu"> 
+  @for (option of exportMenuOptions; track $index) { 
+    <button mat-menu-item >
+      {{ option.label }} 
+    </button> 
+  } 
+</mat-menu>

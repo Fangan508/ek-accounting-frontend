@@ -1,0 +1,20 @@
+.gap-span {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.export-button { 
+  display: inline-flex; 
+  align-items: center; 
+  width: 100%; // optional: only if you want full width
+  gap: 0.5rem; // spacing between text, bar, and icon 
+  border-radius: 0; 
+}
+
+.expand-icon { 
+  font-size: 20px; // optional: adjust icon size 
+  margin-left: auto;
+  display: flex; 
+  align-items: center;
+  text-align: right;
+}
