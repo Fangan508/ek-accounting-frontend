@@ -21,4 +21,27 @@ export class SaveExportDropdownbuttonComponent implements OnInit {
       { label: 'Speichern ohne Export', value: 'save' }
     ];
   }
+
+  _onSave(value: string): void {
+    switch (value) {
+      case 'save-export':
+        this._save(true);
+        break;
+      case 'save':
+        this._save(false);
+        break;
+      default:
+        break;
+    }
+    console.log('Save action triggered');
+  }
+
+  private _save(download?: boolean): void {
+    // Implement save and export logic here
+    if (download) {
+      console.log('Saving and exporting...');
+    } else {
+      console.log('Saving without export...');
+    }
+  }
 }

@@ -9,7 +9,7 @@
 
 <mat-menu #exportMenu="matMenu"> 
   @for (option of exportMenuOptions; track $index) { 
-    <button mat-menu-item >
+    <button mat-menu-item (click)="_onSave(option.value)">
       {{ option.label }} 
     </button> 
   } 
