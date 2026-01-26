@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
 import { TextboxFormFieldComponent } from '@ek/shared/components/form-fields/textbox-form-field/textbox-form-field.component';
 import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'ek-bank-book-title',
-  imports: [TextboxFormFieldComponent],
+  imports: [ReactiveFormsModule, TextboxFormFieldComponent],
   templateUrl: './bank-book-title.component.html',
   styleUrl: './bank-book-title.component.scss'
 })

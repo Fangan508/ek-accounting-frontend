@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { GetBankBookDto, GetBankBookPositionDto } from '@ek/autogen/accountings/index';
+import { BankBookDto, BankBookPositionDto } from '@ek/autogen/accountings/index';
 import { BankBookDetailsRequest, BankBooksRequest } from '@ek/features/accountings/models/accountings-books.model';
 
 export namespace BankBooksActions {
@@ -11,7 +11,7 @@ export namespace BankBooksActions {
   export class LoadBankBooksSuccess {
     static readonly type = '[Bank Books Actions] Load Bank Books Success';
     constructor(
-      public readonly books: GetBankBookDto[],
+      public readonly books: BankBookDto[],
       public readonly total: number
     ) {}
   }
@@ -29,7 +29,7 @@ export namespace BankBooksActions {
   // Bank Book Details
   export class SetSelectedBankBook {
     static readonly type = '[Bank Books Actions] Set Selected Bank Book';
-    constructor(public readonly bankBook: GetBankBookDto | undefined) {}
+    constructor(public readonly bankBook: BankBookDto | undefined) {}
   }
 
   export class SetBankBookDetailsRequest {
@@ -45,7 +45,7 @@ export namespace BankBooksActions {
   export class LoadBankBookDetailsSuccess {
     static readonly type = '[Bank Books Actions] Load Bank Book Details Success';
     constructor(
-      public readonly details: GetBankBookPositionDto[],
+      public readonly details: BankBookPositionDto[],
       public readonly total: number
     ) {}
   }

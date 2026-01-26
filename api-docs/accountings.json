@@ -66,17 +66,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetBankBookDtoPaginatedResponseDto"
+                  "$ref": "#/components/schemas/BankBookDtoPaginatedResponseDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetBankBookDtoPaginatedResponseDto"
+                  "$ref": "#/components/schemas/BankBookDtoPaginatedResponseDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetBankBookDtoPaginatedResponseDto"
+                  "$ref": "#/components/schemas/BankBookDtoPaginatedResponseDto"
                 }
               }
             }
@@ -123,6 +123,97 @@
           },
           "404": {
             "description": "No bank books found for the current user.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "AccountingBooking"
+        ],
+        "summary": "Creates a new bank book based on the provided request data.",
+        "requestBody": {
+          "description": "The request data for creating the bank bank.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BankBookCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BankBookCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BankBookCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created the bank book.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankBookCreatedDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankBookCreatedDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankBookCreatedDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error occured.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - User not authenticated.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -200,17 +291,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetBankBookPositionDtoPaginatedResponseDto"
+                  "$ref": "#/components/schemas/BankBookPositionDtoPaginatedResponseDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetBankBookPositionDtoPaginatedResponseDto"
+                  "$ref": "#/components/schemas/BankBookPositionDtoPaginatedResponseDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetBankBookPositionDtoPaginatedResponseDto"
+                  "$ref": "#/components/schemas/BankBookPositionDtoPaginatedResponseDto"
                 }
               }
             }
@@ -284,7 +375,54 @@
   },
   "components": {
     "schemas": {
-      "GetBankBookDto": {
+      "BankBookCreateDto": {
+        "required": [
+          "name",
+          "positions"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "description": "Gets or sets the name associated with the bank book."
+          },
+          "bookingDate": {
+            "type": "string",
+            "description": "Gets or sets the booking date for the bank book.",
+            "format": "date-time"
+          },
+          "positions": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankBookPositionCreateDto"
+            },
+            "description": "Gets the collection of positions to be included in the bank book."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a request to create a bank book."
+      },
+      "BankBookCreatedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Gets or sets the unique identifier of the created bank book.",
+            "format": "uuid"
+          },
+          "message": {
+            "type": "string",
+            "description": "Gets or sets the message associated with the bank book creation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the response data for creating a bank book."
+      },
+      "BankBookDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -306,7 +444,7 @@
         "additionalProperties": false,
         "description": "Represents a data transfer object for retrieving bank books."
       },
-      "GetBankBookDtoPaginatedResponseDto": {
+      "BankBookDtoPaginatedResponseDto": {
         "required": [
           "items",
           "pagination"
@@ -316,7 +454,7 @@
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/GetBankBookDto"
+              "$ref": "#/components/schemas/BankBookDto"
             },
             "description": "Gets or sets the collection of items in the current page.",
             "nullable": true
@@ -328,7 +466,32 @@
         "additionalProperties": false,
         "description": "Represents a paginated response containing a collection of items and pagination details."
       },
-      "GetBankBookPositionDto": {
+      "BankBookPositionCreateDto": {
+        "required": [
+          "sellerName"
+        ],
+        "type": "object",
+        "properties": {
+          "bookingDate": {
+            "type": "string",
+            "description": "Gets or sets the booking date of the bank book position.",
+            "format": "date-time"
+          },
+          "sellerName": {
+            "type": "string",
+            "description": "Gets or sets the name of the seller or vendor from whom the item was purchased.",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "description": "Gets or sets the monetary amount associated with this position.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a position in a bank book."
+      },
+      "BankBookPositionDto": {
         "required": [
           "sellerName"
         ],
@@ -353,7 +516,7 @@
         "additionalProperties": false,
         "description": "Represents a position in a bank book, including details about the transaction, seller and date."
       },
-      "GetBankBookPositionDtoPaginatedResponseDto": {
+      "BankBookPositionDtoPaginatedResponseDto": {
         "required": [
           "items",
           "pagination"
@@ -363,7 +526,7 @@
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/GetBankBookPositionDto"
+              "$ref": "#/components/schemas/BankBookPositionDto"
             },
             "description": "Gets or sets the collection of items in the current page.",
             "nullable": true

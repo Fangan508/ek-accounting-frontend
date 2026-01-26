@@ -2,19 +2,19 @@ import { StateMetadata } from '@ek/shared/models/state-metadata.model';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { produce } from 'immer';
-import { AccountingBookingService, GetBankBookDto, GetBankBookPositionDto } from '@ek/autogen/accountings/index';
+import { AccountingBookingService, BankBookDto, BankBookPositionDto } from '@ek/autogen/accountings/index';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@ek/shared/utils/table.utils';
 import { BankBooksActions } from './bank-books.actions';
 import { BankBookDetailsRequest, BankBooksRequest } from '@ek/features/accountings/models/accountings-books.model';
 import { patch } from '@ngxs/store/operators';
 
 export class BankBooksStateModel {
-  bankBooks!: StateMetadata<GetBankBookDto[]>;
+  bankBooks!: StateMetadata<BankBookDto[]>;
   detailsRequest!: BankBookDetailsRequest;
-  details!: StateMetadata<GetBankBookPositionDto[]>;
+  details!: StateMetadata<BankBookPositionDto[]>;
   request!: BankBooksRequest;
-  selectedBankBook?: GetBankBookDto;
-  addedBankBookPositions?: GetBankBookPositionDto[];
+  selectedBankBook?: BankBookDto;
+  addedBankBookPositions?: BankBookPositionDto[];
 }
 
 const initialBankBooksState = {
@@ -53,7 +53,7 @@ export class BankBooksState {
   constructor(private readonly _accountingBookingService: AccountingBookingService) {}
 
   @Selector()
-  static bankBooks(state: BankBooksStateModel): StateMetadata<GetBankBookDto[]> {
+  static bankBooks(state: BankBooksStateModel): StateMetadata<BankBookDto[]> {
     return state.bankBooks;
   }
 
@@ -63,12 +63,12 @@ export class BankBooksState {
   }
 
   @Selector()
-  static selectedBankBook(state: BankBooksStateModel): GetBankBookDto | undefined {
+  static selectedBankBook(state: BankBooksStateModel): BankBookDto | undefined {
     return state.selectedBankBook;
   }
 
   @Selector()
-  static bankBookDetails(state: BankBooksStateModel): StateMetadata<GetBankBookPositionDto[]> {
+  static bankBookDetails(state: BankBooksStateModel): StateMetadata<BankBookPositionDto[]> {
     return state.details;
   }
 

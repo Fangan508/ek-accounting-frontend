@@ -5,15 +5,20 @@ import { MatSelectModule } from '@angular/material/select';
 import { ExportOption } from '@ek/features/accountings/models/export-option.model';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
+import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
 
 @Component({
   selector: 'ek-save-export-dropdownbutton',
-  imports: [MatButtonModule, MatIcon, MatFormField, MatLabel, MatSelectModule, MatMenuModule],
+  imports: [MatButtonModule, MatIcon, MatSelectModule, MatMenuModule],
   templateUrl: './save-export-dropdownbutton.component.html',
   styleUrl: './save-export-dropdownbutton.component.scss'
 })
 export class SaveExportDropdownbuttonComponent implements OnInit {
   exportMenuOptions: ExportOption[] = [];
+
+  constructor(private _createBankBookFacade: CreateBankBookFacade) {
+
+  }
 
   ngOnInit(): void {
     this.exportMenuOptions = [
@@ -41,6 +46,7 @@ export class SaveExportDropdownbuttonComponent implements OnInit {
     if (download) {
       console.log('Saving and exporting...');
     } else {
+      this._createBankBookFacade.actions.createBankBook();
       console.log('Saving without export...');
     }
   }

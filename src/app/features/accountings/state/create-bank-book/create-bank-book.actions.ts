@@ -44,4 +44,9 @@ export namespace CreateBankBookActions {
     static readonly type = '[CreateBankBook Actions] Set Bank Book Title';
     constructor(public readonly title: string) {}
   }
+
+  export class CreateBankBook {
+    static readonly type = '[CreateBankBook Actions] Create Bank Book';
+    constructor() {}
+  }
 }

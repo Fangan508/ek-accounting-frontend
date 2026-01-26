@@ -5,6 +5,8 @@ import { current, produce } from "immer";
 import { CreateBankBookActions } from "./create-bank-book.actions";
 import { BankBookPosition } from "../../models/bank-book-position.model";
 import { BankBookPositionConfig } from "../../models/bank-book-position-config.model";
+import { CreateBankBookFacade } from "./create-bank-book.facade";
+import { AccountingBookingService, BankBookCreateDto, BankBookPositionCreateDto } from '@ek/autogen/accountings/index';
 
 export enum CreateBankBookStep {
   General,
@@ -19,6 +21,7 @@ export class CreateBankBookStateModel {
   addedBankBookPositions!: BankBookPosition[];
   bankBookPositionConfig!: BankBookPositionConfig;
   bankBookTitle!: string;
+  isBankBookCreating?: boolean;
 }
 
 const initialBankBookPositionConfig: BankBookPositionConfig = {
@@ -39,7 +42,8 @@ const initialState = {
     metadata: []
   },
   addedBankBookPositions: [],
-  bankBookTitle: ''
+  bankBookTitle: '',
+  isBankBookCreating: false
 };
 
 
@@ -49,7 +53,10 @@ const initialState = {
 })
 @Injectable()
 export class CreateBankBookState {
-  constructor() {}
+  constructor(
+    private readonly _createBankBookFacade: CreateBankBookFacade,
+    private readonly _bankBookService: AccountingBookingService
+  ) {}
 
   // General
   @Selector()
@@ -89,6 +96,11 @@ export class CreateBankBookState {
   @Selector()
   static bankBookTitle(state: CreateBankBookStateModel): string {
     return state.bankBookTitle ?? initialState.bankBookTitle;
+  }
+
+  @Selector()
+  static isBankBookCreating(state: CreateBankBookStateModel): boolean {
+    return state.isBankBookCreating ?? initialState.isBankBookCreating;
   }
 
   // General Actions
@@ -190,5 +202,41 @@ export class CreateBankBookState {
     patchState({
       bankBookTitle: title
     });
+  }
+
+  @Action(CreateBankBookActions.CreateBankBook)
+  createBankBook(
+    { getState, setState, dispatch }: StateContext<CreateBankBookStateModel>
+  ): void {
+    setState(
+      produce(draft => {
+        draft.isBankBookCreating = true;
+      })
+    );
+
+    const state = getState();
+
+    const bankBookPositions = this._createBankBookFacade.signalSelectors.bankBookPositions().metadata;
+    const positions: BankBookPositionCreateDto[] = bankBookPositions.map(position => 
+      ({
+        bookingDate: position.bookingDate?.toString(),
+        sellerName: position.description ?? '',
+        amount: position.credit
+      })
+    );
+
+    const request: BankBookCreateDto = {
+      name: state.bankBookTitle,
+      bookingDate: "2026-01-23T19:01:15.247Z",
+      positions: positions
+    };
+
+    this._bankBookService.apiV1AccountingBookingPost(request).subscribe({
+      next: () => {
+        console.log('Bank Book created successfully:');
+      }
+    });
+
+    console.log('Bank Book Positions to createaaaaa:', bankBookPositions);
   }
 }

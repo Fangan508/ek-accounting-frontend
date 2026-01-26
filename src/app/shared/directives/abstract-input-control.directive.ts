@@ -52,6 +52,8 @@ export abstract class AbstractInputControlDirective<T extends FormControl | Abst
       this.control = control;
       this._patchControlUpdateFunctions(control);
     });
+
+    this.controlInstanceChanged$.next(this.control);
   }
 
   writeValue(obj: unknown): void {}
