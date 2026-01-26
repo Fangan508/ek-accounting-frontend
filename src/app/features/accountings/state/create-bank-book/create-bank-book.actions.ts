@@ -40,6 +40,11 @@ export namespace CreateBankBookActions {
   }
 
   // Completion Step
+  export class SetBankBookMonth {
+    static readonly type = '[CreateBankBook Actions] Set Bank Book Month';
+    constructor(public readonly month: Date) {}
+  }
+
   export class SetBankBookTitle {
     static readonly type = '[CreateBankBook Actions] Set Bank Book Title';
     constructor(public readonly title: string) {}

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Action, Selector, State, StateContext } from "@ngxs/store";
+import { Action, Select, Selector, State, StateContext } from "@ngxs/store";
 import { StateMetadata } from '@ek/shared/models/state-metadata.model';
 import { current, produce } from "immer";
 import { CreateBankBookActions } from "./create-bank-book.actions";
@@ -20,6 +20,7 @@ export class CreateBankBookStateModel {
   bankBookPositions!: StateMetadata<BankBookPosition[]>;
   addedBankBookPositions!: BankBookPosition[];
   bankBookPositionConfig!: BankBookPositionConfig;
+  bankBookMonth!: Date;
   bankBookTitle!: string;
   isBankBookCreating?: boolean;
 }
@@ -41,6 +42,7 @@ const initialState = {
     total: 0,
     metadata: []
   },
+  bankBookMonth: new Date(),
   addedBankBookPositions: [],
   bankBookTitle: '',
   isBankBookCreating: false
@@ -84,6 +86,11 @@ export class CreateBankBookState {
     }
 
     return isValidStep && state.isValidForm;
+  }
+
+  @Selector()
+  static bankBookMonth(state: CreateBankBookStateModel): Date {
+    return state.bankBookMonth;
   }
 
   // Bank Book Positions Step
@@ -225,11 +232,23 @@ export class CreateBankBookState {
       })
     );
 
+    console.log(
+      'value:', state.bankBookMonth, 
+      'type:', typeof state.bankBookMonth, 
+      'instanceof Date:', state.bankBookMonth instanceof Date);
+
+    console.log('yyyyyyyyyyyyyyyyyyyyyyyyyy', state.bankBookMonth);
+    const bookingMonth = typeof state.bankBookMonth === 'string' ? state.bankBookMonth : state.bankBookMonth?.toISOString();
+    console.log('hhhhhhhhhhhhh', bookingMonth);
+
     const request: BankBookCreateDto = {
       name: state.bankBookTitle,
-      bookingDate: "2026-01-23T19:01:15.247Z",
+      bookingDate: bookingMonth,
+      // bookingDate: "2025-11-01T12:48:19.806Z",
       positions: positions
     };
+
+    console.log('aaaaaaaaaaaaaaaa', state.bankBookMonth);
 
     this._bankBookService.apiV1AccountingBookingPost(request).subscribe({
       next: () => {

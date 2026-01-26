@@ -11,6 +11,7 @@ export class CreateBankBookFacade {
     // General Step
     currentStep: select(CreateBankBookState.currentStep),
     isValidStep: select(CreateBankBookState.isValidStep),
+    bankBookMonth: select(CreateBankBookState.bankBookMonth),
 
     // Bank Book Positions Step
     bankBookPositions: select(CreateBankBookState.bankBookPositions),
@@ -24,6 +25,7 @@ export class CreateBankBookFacade {
     setCurrentStep: CreateBankBookActions.SetCurrentStep,
     setIsValidForm: CreateBankBookActions.SetIsValidForm,
     clearState: CreateBankBookActions.ClearState,
+    setBankBookMonth: CreateBankBookActions.SetBankBookMonth,
 
     // Bank Book Positions Step
     loadBankBookPositions: CreateBankBookActions.LoadBankBookPositions,
