@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { BankBookPositionConfig } from "../../models/bank-book-position-config.model";
 import { BankBookPosition } from "../../models/bank-book-position.model";
 
@@ -53,5 +54,10 @@ export namespace CreateBankBookActions {
   export class CreateBankBook {
     static readonly type = '[CreateBankBook Actions] Create Bank Book';
     constructor() {}
+  }
+
+  export class CreateBankBookError {
+    static readonly type = '[CreateBankBook Actions] Create Bank Book Error';
+    constructor(public readonly error: HttpErrorResponse) {}
   }
 }

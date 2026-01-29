@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { CreateBankBookStepComponent } from "../../components/create-bank-book/create-bank-book-step/create-bank-book-step.component";
 import { CreateBankBookStepperComponent } from "../../components/create-bank-book/create-bank-book-stepper/create-bank-book-stepper.component";
 import { CreateBankBookActionsComponent } from "../../components/create-bank-book/create-bank-book-actions/create-bank-book-actions.component";
@@ -13,7 +13,7 @@ import { CreateBankBookStep } from '../../state/create-bank-book/create-bank-boo
   styleUrl: './create-bank-book.component.scss'
 })
 export class CreateBankBookComponent {
-  readonly currentStep = this._createBankBookFacade.signalSelectors.currentStep;
+  readonly currentStep = computed(() => this._createBankBookFacade.signalSelectors.currentStep() ?? CreateBankBookStep.General );
   readonly CreateBankBookStep = CreateBankBookStep;
 
   constructor(private readonly _createBankBookFacade: CreateBankBookFacade) {}

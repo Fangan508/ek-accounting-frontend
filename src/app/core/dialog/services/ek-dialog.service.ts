@@ -15,7 +15,8 @@ export class EkDialogService {
       minWidth: config.dialogConfig?.minWidth || 375,
       maxWidth: '40vw',
       minHeight: config.dialogConfig?.minHeight || '80vh',
-      maxHeight: config.dialogConfig?.maxHeight || '80vh'
+      maxHeight: config.dialogConfig?.maxHeight || '80vh',
+      panelClass: config.dialogConfig?.panelClass,
     } );
 
     return dialogRef;

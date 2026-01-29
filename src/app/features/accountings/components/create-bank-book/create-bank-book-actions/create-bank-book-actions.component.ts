@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, EventEmitter, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
 import { CreateBankBookStep } from '@ek/features/accountings/state/create-bank-book/create-bank-book.state';
@@ -16,6 +16,8 @@ export class CreateBankBookActionsComponent {
   readonly isLastStep = computed(() => this.currentStep() === CreateBankBookStep.Completion);
   readonly isValidStep = computed(() => { return this._createBankBookFacade.signalSelectors.isValidStep(); });
   readonly CreateBankBookStep = CreateBankBookStep;
+
+  @Output() closeDialog = new EventEmitter<void>();
 
   constructor(private readonly _createBankBookFacade: CreateBankBookFacade) {}
 

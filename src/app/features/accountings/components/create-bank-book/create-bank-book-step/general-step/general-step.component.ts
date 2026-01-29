@@ -24,7 +24,9 @@ export class GeneralStepComponent implements OnInit {
     this.formControl.patchValue(month ? new Date(month) : undefined, { emitEvent: false });
 
     this.formControl.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
-      this._createBankBookFacade.actions.setBankBookMonth(value ?? new Date());
+      if (value) { 
+        const date = value instanceof Date ? value : new Date(value); 
+        this._createBankBookFacade.actions.setBankBookMonth(date); }
     });
   }
 

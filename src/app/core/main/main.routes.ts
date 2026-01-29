@@ -6,6 +6,7 @@ import { BankBooksFacade } from "@ek/features/accountings/state/bank-books/bank-
 import { importProvidersFrom } from "@angular/core";
 import { NgxsModule } from "@ngxs/store";
 import { BankBooksState } from "@ek/features/accountings/state/bank-books/bank-books.state";
+import { CreateBankBookState } from "@ek/features/accountings/state/create-bank-book/create-bank-book.state";
 
 export const MAIN_ROUTES: Route[] = [
     {
@@ -16,7 +17,7 @@ export const MAIN_ROUTES: Route[] = [
           {
               path: EK_ROUTES_CONFIG.accountingBooks.path,
               loadChildren: () => import('@ek/features/accountings/accountings.routes').then(m => m.ACCOUNTING_ROUTES),
-              providers: [BankBooksFacade, importProvidersFrom(NgxsModule.forFeature([BankBooksState]))]
+              providers: [BankBooksFacade, importProvidersFrom(NgxsModule.forFeature([BankBooksState, CreateBankBookState]))]
           }
         ]
     }   

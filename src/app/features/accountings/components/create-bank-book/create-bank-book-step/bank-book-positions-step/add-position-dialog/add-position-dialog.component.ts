@@ -1,7 +1,7 @@
 import { Component, ViewChild, computed } from '@angular/core';
 import { BankBookPositionFormComponent } from './bank-book-position-form/bank-book-position-form.component';
 import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { BankBookPosition } from '@ek/features/accountings/models/bank-book-position.model';
 import { signal } from '@angular/core';
 
@@ -22,12 +22,12 @@ export class AddPositionDialogComponent {
   isFormValid = signal(false);
 
   constructor(
-    private readonly _dialog: MatDialog,
+    private readonly dialogRef: MatDialogRef<AddPositionDialogComponent>,
     private readonly _createBankBookFacade: CreateBankBookFacade) {
   }
 
   onClose(): void { 
-    this._dialog.closeAll();
+    this.dialogRef.close();
   }
 
   onAdd(): void { 
@@ -35,7 +35,7 @@ export class AddPositionDialogComponent {
     this.formComponent.submitForm();
 
     this._createBankBookFacade.actions.addBankBookPosition(this._currentPosition);
-    this._dialog.closeAll();
+    this.dialogRef.close();
 
     const successText = 'Position erfolgreich hinzugefügt.';
     // Here we would trigger a notification service to show the success message

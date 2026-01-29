@@ -1,0 +1,16 @@
+<mat-dialog-content>
+  <div>
+    <ek-create-bank-book-stepper></ek-create-bank-book-stepper>
+  </div>
+</mat-dialog-content>
+<ek-create-bank-book-step />
+<ek-create-bank-book-actions (closeDialog)="onCloseDialog()"/>
+
+
+
+<!-- <ek-create-bank-book-stepper></ek-create-bank-book-stepper>
+
+<div [ngClass]="{'step-wrapper': true, 'full-width': currentStep() === CreateBankBookStep.Positions}">
+  <ek-create-bank-book-step></ek-create-bank-book-step>
+  <ek-create-bank-book-actions></ek-create-bank-book-actions>  
+</div> -->

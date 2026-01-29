@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -19,6 +19,8 @@ export class SaveExportDropdownbuttonComponent implements OnInit {
   constructor(private _createBankBookFacade: CreateBankBookFacade) {
 
   }
+
+  @Output() closeDialog = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.exportMenuOptions = [
@@ -46,7 +48,11 @@ export class SaveExportDropdownbuttonComponent implements OnInit {
     if (download) {
       console.log('Saving and exporting...');
     } else {
-      this._createBankBookFacade.actions.createBankBook();
+      this._createBankBookFacade.actions
+        .createBankBook()
+        .subscribe({
+          next: () => this.closeDialog.emit()
+        });
       console.log('Saving without export...');
     }
   }

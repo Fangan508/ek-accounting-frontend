@@ -34,7 +34,8 @@ export class CreateBankBookFacade {
 
     // Completion Step
     setBankBookTitle: CreateBankBookActions.SetBankBookTitle,
-    createBankBook: CreateBankBookActions.CreateBankBook
+    createBankBook: CreateBankBookActions.CreateBankBook,
+    createBankBookError: CreateBankBookActions.CreateBankBookError
   });
 
   constructor(private readonly _store: Store) {}

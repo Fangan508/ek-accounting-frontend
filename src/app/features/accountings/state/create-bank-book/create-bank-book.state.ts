@@ -130,6 +130,15 @@ export class CreateBankBookState {
     patchState(initialState);
   }
 
+  @Action(CreateBankBookActions.SetBankBookMonth)
+  setBankBookMonth(
+    { patchState }: StateContext<CreateBankBookStateModel>, 
+    { month }: CreateBankBookActions.SetBankBookMonth): void {
+    patchState({
+      bankBookMonth: month
+    });
+  }
+
   // Bank Book Positions Step Actions
   @Action(CreateBankBookActions.LoadBankBookPositions)
   loadBankBookPositions({ getState, setState, dispatch }: StateContext<CreateBankBookStateModel>): void {
@@ -226,7 +235,7 @@ export class CreateBankBookState {
     const bankBookPositions = this._createBankBookFacade.signalSelectors.bankBookPositions().metadata;
     const positions: BankBookPositionCreateDto[] = bankBookPositions.map(position => 
       ({
-        bookingDate: position.bookingDate?.toString(),
+        bookingDate: position.bookingDate ? new Date(position.bookingDate).toISOString() : undefined,
         sellerName: position.description ?? '',
         amount: position.credit
       })
@@ -238,24 +247,43 @@ export class CreateBankBookState {
       'instanceof Date:', state.bankBookMonth instanceof Date);
 
     console.log('yyyyyyyyyyyyyyyyyyyyyyyyyy', state.bankBookMonth);
-    const bookingMonth = typeof state.bankBookMonth === 'string' ? state.bankBookMonth : state.bankBookMonth?.toISOString();
+    const bookingMonth = typeof state.bankBookMonth === 'string' ? state.bankBookMonth : new Date(state.bankBookMonth).toISOString();
     console.log('hhhhhhhhhhhhh', bookingMonth);
 
     const request: BankBookCreateDto = {
       name: state.bankBookTitle,
       bookingDate: bookingMonth,
-      // bookingDate: "2025-11-01T12:48:19.806Z",
+      // bookingDate: "2024-11-01T12:48:19.806Z",
       positions: positions
     };
 
-    console.log('aaaaaaaaaaaaaaaa', state.bankBookMonth);
+    console.log('BankBookCreateDto - bankBookTitle: ', request.name);
+    console.log('BankBookCreateDto - BookingMonth: ', request.bookingDate);
+    console.log('BankBookCreateDto - Positions: ', request.positions);
+    console.log('BankBookCreateDto: ', request);
 
     this._bankBookService.apiV1AccountingBookingPost(request).subscribe({
       next: () => {
         console.log('Bank Book created successfully:');
+      }, 
+      error: error => { 
+        dispatch(new CreateBankBookActions.CreateBankBookError(error));
+        console.error('Error creating Bank Book:', error); 
+        console.error('VALIDATION ERRORS:', error.error?.errors);
       }
     });
 
     console.log('Bank Book Positions to createaaaaa:', bankBookPositions);
+  }
+
+  @Action(CreateBankBookActions.CreateBankBookError)
+  createBankBookError({ setState }: StateContext<CreateBankBookStateModel>, { error }: CreateBankBookActions.CreateBankBookError): void {
+    setState(
+      produce(draft => {
+        draft.isBankBookCreating = false;
+      })
+    );
+    const errorText = "Create Bank Book failed: " + JSON.stringify(error);
+    console.error('CreateBankBookError Action triggered with error:', error);
   }
 }

@@ -17,7 +17,22 @@ export class BankBookPositionsStepHeaderComponent {
 
   onAddPosition(): void {
     this._ekDialogService.open({
-      content: AddPositionDialogComponent      
+      content: AddPositionDialogComponent,
+      dialogConfig: {panelClass: ['animate__animated','animate__slideInUp']}  
     });
+
+    // for my reference, the code below adds exit animation when closing the dialog
+    // const dialogRef = this._ekDialogService.open({ 
+    //   content: AddPositionDialogComponent, 
+    //   dialogConfig: { panelClass: ['animate__animated', 'animate__slideInUp'] } 
+    // }); 
+    
+    // dialogRef.beforeClosed().subscribe(() => { 
+    //   const pane = document.querySelector('.cdk-overlay-pane'); 
+    //   pane?.classList.remove('animate__slideInUp'); 
+    //   pane?.classList.add('animate__slideOutDown'); 
+    // });
   }
 }
+
+
