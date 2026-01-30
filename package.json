@@ -22,6 +22,8 @@
     "@angular/platform-browser": "^19.1.0",
     "@angular/platform-browser-dynamic": "^19.1.0",
     "@angular/router": "^19.2.15",
+    "@azure/msal-angular": "^5.0.2",
+    "@azure/msal-browser": "^5.0.2",
     "@ngneat/until-destroy": "^10.0.0",
     "@ngxs/logger-plugin": "^20.1.0",
     "@ngxs/storage-plugin": "^20.1.0",
