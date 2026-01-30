@@ -1,16 +1,22 @@
-// ::ng-deep .create-bank-book-dialog {
-//   .mat-dialog-container {
-//     display: block;
-//     font-weight: 600 !important;
+/* Slim footer actions */ 
+.slim-actions { 
+  border-top: none !important; 
+  padding: 4px 12px; 
+  min-height: 40px; 
+  
+  /* Remove borders/shadows from all nested elements */ 
+  * { 
+    border: none !important; 
+    box-shadow: none !important; 
+  } 
+} 
 
-//     &&::before {
-//       content: none;
-//     }
-
-//     .mat-dialog-content {
-//       display: none;
-//       width: 800px;
-//     }
-//   }
-// }
-
+/* Unified horizontal padding for title, stepper, and content */ 
+::ng-deep .create-bank-book-dialog { 
+  h2[mat-dialog-title], 
+  ek-create-bank-book-stepper, 
+  .mat-dialog-content { 
+    padding-left: 24px !important; 
+    padding-right: 24px !important; 
+  } 
+}

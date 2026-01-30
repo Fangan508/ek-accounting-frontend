@@ -1,16 +1,8 @@
-<mat-dialog-content>
-  <div>
-    <ek-create-bank-book-stepper></ek-create-bank-book-stepper>
-  </div>
+<h2 mat-dialog-title>Bankbuch erstellen</h2>
+<ek-create-bank-book-stepper></ek-create-bank-book-stepper>
+<mat-dialog-content >
+  <ek-create-bank-book-step />
 </mat-dialog-content>
-<ek-create-bank-book-step />
-<ek-create-bank-book-actions (closeDialog)="onCloseDialog()"/>
-
-
-
-<!-- <ek-create-bank-book-stepper></ek-create-bank-book-stepper>
-
-<div [ngClass]="{'step-wrapper': true, 'full-width': currentStep() === CreateBankBookStep.Positions}">
-  <ek-create-bank-book-step></ek-create-bank-book-step>
-  <ek-create-bank-book-actions></ek-create-bank-book-actions>  
-</div> -->
+<mat-dialog-actions class="slim-actions">
+  <ek-create-bank-book-actions (closeDialog)="onCloseDialog()"/>
+</mat-dialog-actions>
