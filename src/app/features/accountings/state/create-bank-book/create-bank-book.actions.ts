@@ -56,6 +56,11 @@ export namespace CreateBankBookActions {
     constructor() {}
   }
 
+  export class CreateBankBookSuccess {
+    static readonly type = '[CreateBankBook Actions] Create Bank Book Success';
+    constructor() {}
+  }
+
   export class CreateBankBookError {
     static readonly type = '[CreateBankBook Actions] Create Bank Book Error';
     constructor(public readonly error: HttpErrorResponse) {}

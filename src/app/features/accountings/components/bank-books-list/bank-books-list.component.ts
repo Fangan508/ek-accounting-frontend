@@ -1,4 +1,4 @@
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect  } from '@angular/core';
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, OnInit  } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, ModuleRegistry  } from 'ag-grid-community';
 import { AllCommunityModule } from 'ag-grid-community';
@@ -19,7 +19,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
   styleUrl: './bank-books-list.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class BankBooksListComponent {
+export class BankBooksListComponent implements OnInit {
   readonly pageSizes = DEFAULT_PAGE_SIZE;
   readonly bankBooks = this._bankBooksFacade.signalSelectors.bankBooks;
   readonly request = this._bankBooksFacade.signalSelectors.bankBooksRequest;
@@ -29,9 +29,12 @@ export class BankBooksListComponent {
     private readonly _bankBooksFacade: BankBooksFacade) {
 
     effect(() => {
-      const request = this.request;
       this._bankBooksFacade.actions.loadBankBooks();
     });
+  }
+
+  ngOnInit(): void {
+    this._bankBooksFacade.actions.loadBankBooks();
   }
 
   rowData = computed(() => {

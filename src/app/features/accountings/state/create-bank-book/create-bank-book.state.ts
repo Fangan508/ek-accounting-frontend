@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Action, Select, Selector, State, StateContext } from "@ngxs/store";
 import { StateMetadata } from '@ek/shared/models/state-metadata.model';
 import { current, produce } from "immer";
@@ -7,6 +7,7 @@ import { BankBookPosition } from "../../models/bank-book-position.model";
 import { BankBookPositionConfig } from "../../models/bank-book-position-config.model";
 import { CreateBankBookFacade } from "./create-bank-book.facade";
 import { AccountingBookingService, BankBookCreateDto, BankBookPositionCreateDto } from '@ek/autogen/accountings/index';
+import { BankBooksFacade } from "../bank-books/bank-books.facade";
 
 export enum CreateBankBookStep {
   General,
@@ -55,10 +56,9 @@ const initialState = {
 })
 @Injectable()
 export class CreateBankBookState {
-  constructor(
-    private readonly _createBankBookFacade: CreateBankBookFacade,
-    private readonly _bankBookService: AccountingBookingService
-  ) {}
+  private readonly _createBankBookFacade = inject(CreateBankBookFacade);
+  private readonly _bankBooksFacade = inject(BankBooksFacade);
+  private readonly _bankBookService = inject(AccountingBookingService);
 
   // General
   @Selector()
@@ -264,6 +264,7 @@ export class CreateBankBookState {
 
     this._bankBookService.apiV1AccountingBookingPost(request).subscribe({
       next: () => {
+        dispatch(new CreateBankBookActions.CreateBankBookSuccess());
         console.log('Bank Book created successfully:');
       }, 
       error: error => { 
@@ -274,6 +275,17 @@ export class CreateBankBookState {
     });
 
     console.log('Bank Book Positions to createaaaaa:', bankBookPositions);
+  }
+
+  @Action(CreateBankBookActions.CreateBankBookSuccess)
+  createBankBookSuccess({ setState }: StateContext<CreateBankBookStateModel>): void {
+    setState(
+      produce(draft => {
+        draft.isBankBookCreating = false;
+      })
+    );
+
+    this._bankBooksFacade.actions.loadBankBooks();
   }
 
   @Action(CreateBankBookActions.CreateBankBookError)
