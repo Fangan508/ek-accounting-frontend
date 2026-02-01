@@ -1,13 +1,13 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
-import { DatepickerFormFieldComponent } from '@ek/shared/components/form-fields/datepicker-form-field/datepicker-form-field.component';
 import { SectionTitleComponent } from "@ek/shared/components/section-title/section-title/section-title.component";
 import { debounceTime } from 'rxjs';
+import { MonthYearPickerFormFieldComponent } from "@ek/shared/components/form-fields/month-year-picker-form-field/month-year-picker-form-field.component";
 
 @Component({
   selector: 'ek-general-step',
-  imports: [ReactiveFormsModule, SectionTitleComponent, DatepickerFormFieldComponent],
+  imports: [ReactiveFormsModule, SectionTitleComponent, MonthYearPickerFormFieldComponent],
   templateUrl: './general-step.component.html',
   styleUrl: './general-step.component.scss'
 })
