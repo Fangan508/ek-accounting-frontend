@@ -1,5 +1,5 @@
 <div class="action-buttons">
-  <button mat-button style="border-radius: 0;">Abbrechen</button>
+  <button mat-button style="border-radius: 0;" (click)="onCancel()">Abbrechen</button>
   <button mat-stroked-button style="border-radius: 0;" [disabled]="isFirstStep()" (click)="onBack()">Zurück</button>
   @if (isLastStep()) {
     <ek-save-export-dropdownbutton (closeDialog)="closeDialog.emit()"/>

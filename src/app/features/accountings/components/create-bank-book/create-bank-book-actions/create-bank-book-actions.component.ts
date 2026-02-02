@@ -21,6 +21,10 @@ export class CreateBankBookActionsComponent {
 
   constructor(private readonly _createBankBookFacade: CreateBankBookFacade) {}
 
+  onCancel(): void {
+    this.closeDialog.emit();
+  }
+
   onBack(): void {
     this._createBankBookFacade.actions.setCurrentStep(this.currentStep() - 1);
   }
