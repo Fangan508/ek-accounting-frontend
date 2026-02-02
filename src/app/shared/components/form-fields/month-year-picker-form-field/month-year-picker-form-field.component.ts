@@ -70,7 +70,13 @@ export class MonthYearPickerFormFieldComponent extends AbstractInputControlDirec
       month: normalizedMonthAndYear.month,
       year: normalizedMonthAndYear.year,
     });
+
+    // Update internal control
     this.date.setValue(ctrlValue);
+
+    // Update parent form control
+    this.control.setValue(ctrlValue.toJSDate());
+    
     datepicker.close();
   }
 }

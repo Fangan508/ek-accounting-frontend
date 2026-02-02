@@ -1,8 +1,8 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
 import { SectionTitleComponent } from "@ek/shared/components/section-title/section-title/section-title.component";
-import { debounceTime } from 'rxjs';
 import { MonthYearPickerFormFieldComponent } from "@ek/shared/components/form-fields/month-year-picker-form-field/month-year-picker-form-field.component";
 
 @Component({
@@ -17,7 +17,7 @@ export class GeneralStepComponent implements OnInit {
 
   bankBookDateError = signal<string>('');
 
-  constructor(private readonly _createBankBookFacade: CreateBankBookFacade) {}
+  constructor(private readonly _createBankBookFacade: CreateBankBookFacade) { }
 
   ngOnInit(): void {
     const month = this.bankBookMonth();
@@ -31,8 +31,6 @@ export class GeneralStepComponent implements OnInit {
   }
 
   onBankBookDateError(error: ValidationErrors | null): void {
-    console.log('GeneralStepComponent - onBankBookDateError', error);
-
     if (error) {
       this.bankBookDateError.set('Ungültiges Datum');
       this._createBankBookFacade.actions.setIsValidForm(false);
