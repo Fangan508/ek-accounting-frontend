@@ -1,11 +1,8 @@
-import { Component, EventEmitter, Output, signal, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, signal, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { CreateBankBookFacade } from '@ek/features/accountings/state/create-bank-book/create-bank-book.facade';
 import { DatepickerFormFieldComponent } from '@ek/shared/components/form-fields/datepicker-form-field/datepicker-form-field.component';
-import { BankBookPositionTitleComponent } from "./bank-book-position-title/bank-book-position-title.component";
 import { TextboxFormFieldComponent } from '@ek/shared/components/form-fields/textbox-form-field/textbox-form-field.component';
-import { BankBookPositionAmountComponent } from "./bank-book-position-amount/bank-book-position-amount.component";
-import { BankBookPosDocNumberComponent } from "./bank-book-pos-doc-number/bank-book-pos-doc-number.component";
 import { BankBookPosition } from '@ek/features/accountings/models/bank-book-position.model';
 import { NumerictextboxFormFieldComponent } from "@ek/shared/components/form-fields/numerictextbox-form-field/numerictextbox-form-field.component";
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -13,12 +10,14 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 @UntilDestroy()
 @Component({
   selector: 'ek-bank-book-position-form',
-  imports: [TextboxFormFieldComponent, DatepickerFormFieldComponent, BankBookPositionAmountComponent, BankBookPosDocNumberComponent, ReactiveFormsModule, NumerictextboxFormFieldComponent],
+  imports: [TextboxFormFieldComponent, DatepickerFormFieldComponent, ReactiveFormsModule, NumerictextboxFormFieldComponent],
   templateUrl: './bank-book-position-form.component.html',
   styleUrl: './bank-book-position-form.component.scss'
 })
 export class BankBookPositionFormComponent implements OnInit {
   bankBookPositionDateError = signal<string>('');
+
+  @ViewChild('documentNumberInput', { static: false }) documentNumberInput!: NumerictextboxFormFieldComponent;
 
   @Output() positionChange = new EventEmitter<BankBookPosition>();
   @Output() validityChange = new EventEmitter<boolean>();
@@ -119,5 +118,9 @@ export class BankBookPositionFormComponent implements OnInit {
     }
 
     return null;
+  }
+
+  focusFirstField(): void { 
+    this.documentNumberInput?.focus(); 
   }
 }

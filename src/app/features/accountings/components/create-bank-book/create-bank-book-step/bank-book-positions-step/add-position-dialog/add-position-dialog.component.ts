@@ -41,6 +41,24 @@ export class AddPositionDialogComponent {
     // Here we would trigger a notification service to show the success message
   }
 
+  onAddNext(): void { 
+    // trigger the child to emit its position
+    this.formComponent.submitForm();
+    this._createBankBookFacade.actions.addBankBookPosition(this._currentPosition);
+
+    const successText = 'Position erfolgreich hinzugefügt. Fügen Sie eine weitere Position hinzu.';
+    // Here we would trigger a notification service to show the success message
+
+    // Reset the form for the next entry
+    this.formComponent.bankBookPositionForm.reset({
+      documentNumber: 0,
+    })
+
+    setTimeout(() => { 
+      this.formComponent.focusFirstField(); 
+    });
+  }
+
   onPositionChange(position: BankBookPosition): void {
     this._currentPosition = position;
   }

@@ -1,19 +1,12 @@
-// import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-// import { FormControl } from '@angular/forms';
-// import { MatFormFieldModule } from '@angular/material/form-field';
-// import { MatInputModule } from '@angular/material/input';
-// import { AbstractInputControlDirective } from '@ek/shared/directives/abstract-input-control.directive';
-
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Self, ViewChild } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { NgClass, NgTemplateOutlet } from "@angular/common";
 import { FormFieldErrorPipe } from '@ek/shared/pipes/form-field-error.pipe';
 import { FormControl, NgControl, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { AbstractInputControlDirective } from '@ek/shared/directives/abstract-input-control.directive';
 import { InputErrorTranslation } from '../models/input-error-translation.model';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { untilDestroyed } from '@ngneat/until-destroy';
 import { MAX_NUMERIC_VALUE, MIN_NUMERIC_VALUE } from '../utils/form-fields.utils';
 
 @Component({
@@ -24,7 +17,6 @@ import { MAX_NUMERIC_VALUE, MIN_NUMERIC_VALUE } from '../utils/form-fields.utils
     NgClass,
     MatFormFieldModule, 
     MatInputModule, 
-    NgTemplateOutlet, 
     FormFieldErrorPipe, 
     ReactiveFormsModule],
   templateUrl: './numerictextbox-form-field.component.html',
@@ -40,6 +32,8 @@ export class NumerictextboxFormFieldComponent extends AbstractInputControlDirect
 
   @Output() inputBlur = new EventEmitter<void>();
   @Output() hasError = new EventEmitter<ValidationErrors | null>();
+
+  @ViewChild('input', { static: true }) input!: ElementRef<HTMLInputElement>; focus(): void { this.input.nativeElement.focus(); }
 
   constructor(@Optional() @Self() ngControl: NgControl, changeDetectorRef: ChangeDetectorRef) {
     super(ngControl, changeDetectorRef);

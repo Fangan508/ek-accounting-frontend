@@ -1,6 +1,7 @@
 <mat-form-field>
   <mat-label>{{ label }}</mat-label>
   <input matInput 
+    #input
     [formControl]="control"
     [ngClass]="customClass"
     type="number"
