@@ -12,9 +12,9 @@
       (click)="onAdd()">Hinzufügen</button>  
   </div>
 
-  <div class="action-buttons">
-    <button mat-button style="border-radius: 0;">Abbrechen</button>
-    <button mat-stroked-button style="border-radius: 0;" >Zurück</button>
-    <button mat-flat-button style="border-radius: 0;" >Weiter</button>
+  <div class="panel-buttons">
+    <button mat-stroked-button theme style="border-radius: 0;">Abbrechen</button>
+    <button mat-stroked-button style="border-radius: 0;" [mat-dialog-close]="true" cdkFocusInitial [disabled]="!isFormValid()" (click)="onAdd()">Speichern</button>
+    <button mat-flat-button style="border-radius: 0;" >Speichern und nächste</button>
   </div>
 </div>
