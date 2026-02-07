@@ -26,6 +26,10 @@ export class AddPositionDialogComponent {
     private readonly _createBankBookFacade: CreateBankBookFacade) {
   }
 
+  onCancel(): void {
+    this.dialogRef.close();
+  } 
+
   onClose(): void { 
     this.dialogRef.close();
   }
