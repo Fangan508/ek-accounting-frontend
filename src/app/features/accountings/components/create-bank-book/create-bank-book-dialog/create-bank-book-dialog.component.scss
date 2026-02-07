@@ -11,6 +11,12 @@
   } 
 } 
 
+/* Make dialog wider */
+::ng-deep .create-bank-book-dialog  {
+  max-width: 46vw !important;
+  width: 46vw !important;
+}
+
 /* Unified horizontal padding for title, stepper, and content */ 
 ::ng-deep .create-bank-book-dialog { 
   h2[mat-dialog-title], 

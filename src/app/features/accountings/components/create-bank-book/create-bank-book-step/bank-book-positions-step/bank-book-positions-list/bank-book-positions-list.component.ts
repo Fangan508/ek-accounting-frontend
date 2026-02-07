@@ -30,12 +30,10 @@ export class BankBookPositionsListComponent implements OnInit {
   columnDefs: ColDef[] = [
     { field: 'documentNumber', headerName: 'Beleg', width: 70 },
     { field: 'bookingDate', headerName: 'Datum', width: 100, valueFormatter: params => this.formatDateDE(params.value) },
-    { field: 'account', headerName: 'Konto', width: 100 },
     { field: 'text', headerName: 'Text', width: 300 },
     { field: 'credit', headerName: 'Haben', width: 100, valueFormatter: params => this.formatNumberDE(params.value) },
     { field: 'debit', headerName: 'Soll', width: 100, valueFormatter: params => this.formatNumberDE(params.value) },
-    { field: 'balance', headerName: 'Saldo', width: 100, valueFormatter: params => this.formatNumberDE(params.value) },
-    { field: 'counterAccount', headerName: 'Gegenkonto', width: 100 }
+    { field: 'balance', headerName: 'Saldo', width: 100, valueFormatter: params => this.formatNumberDE(params.value) }
   ];
 
   defaultColDef: ColDef = {

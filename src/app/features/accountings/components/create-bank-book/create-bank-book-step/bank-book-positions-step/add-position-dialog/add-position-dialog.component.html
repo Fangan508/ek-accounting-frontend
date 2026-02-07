@@ -1,16 +1,6 @@
 <div class="add-position-dialog-wrapper ">
   <h4>Position hinzufügen</h4>
   <ek-bank-book-position-form (positionChange)="onPositionChange($event)" (validityChange)="onValidityChange($event)"></ek-bank-book-position-form>
-  <div class="action-buttons">
-    <button mat-button mat-dialog-close style="border-radius: 0;" (click)="onClose()">Abbrechen</button>
-    <button 
-      mat-stroked-button 
-      style="border-radius: 0;" 
-      [mat-dialog-close]="true" 
-      cdkFocusInitial
-      [disabled]="!isFormValid()" 
-      (click)="onAdd()">Hinzufügen</button>  
-  </div>
 
   <div class="panel-buttons">
     <button mat-stroked-button theme style="border-radius: 0;" (click)="onCancel()">Abbrechen</button>
