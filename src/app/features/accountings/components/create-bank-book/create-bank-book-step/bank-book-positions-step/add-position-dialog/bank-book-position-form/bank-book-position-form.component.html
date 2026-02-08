@@ -3,27 +3,14 @@
     <ek-numerictextbox-form-field
       label="Belegnummer"
       formControlName="documentNumber"
-      #documentNumberInput
-      />
+      #documentNumberInput />
 
-    <ek-datepicker-form-field formControlName="date" label="Buchungsdatum"></ek-datepicker-form-field>
-    <!-- <ek-bank-book-position-title formControlName="text"></ek-bank-book-position-title> -->
+    <ek-datepicker-form-field formControlName="date" label="Buchungsdatum" />
+    <ek-textbox-form-field label="Bezeichnung" formControlName="text" />
 
-    <ek-textbox-form-field label="Bezeichnung" formControlName="text"/>
-
-    <!-- <ek-bank-book-position-amount [formGroup]="bankBookPositionForm.controls.amount"></ek-bank-book-position-amount> -->
-    <!-- <ek-bank-book-position-amount formControlName="credit"></ek-bank-book-position-amount> -->
-
-    <ek-textbox-form-field 
-      label="Credit" 
-      formControlName="credit"
-      type="number" />
-
-    <ek-textbox-form-field 
-      label="Debit" 
-      formControlName="debit"
-      type="number" />
+    <div class="amounts">
+      <ek-numerictextbox-form-field label="Credit" formControlName="credit" type="number" />
+      <ek-numerictextbox-form-field label="Debit" formControlName="debit" type="number" />
+    </div>
   </form>
 </div>
-
-
