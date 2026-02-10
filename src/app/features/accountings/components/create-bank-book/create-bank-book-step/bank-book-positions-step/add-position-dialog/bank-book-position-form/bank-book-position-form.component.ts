@@ -6,6 +6,7 @@ import { TextboxFormFieldComponent } from '@ek/shared/components/form-fields/tex
 import { BankBookPosition } from '@ek/features/accountings/models/bank-book-position.model';
 import { NumerictextboxFormFieldComponent } from "@ek/shared/components/form-fields/numerictextbox-form-field/numerictextbox-form-field.component";
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { debitCreditValidatorFn } from '@ek/shared/utils/form-validators.utils';
 
 @UntilDestroy()
 @Component({
@@ -22,16 +23,19 @@ export class BankBookPositionFormComponent implements OnInit {
   @Output() positionChange = new EventEmitter<BankBookPosition>();
   @Output() validityChange = new EventEmitter<boolean>();
 
+  bookingAmounts = new FormGroup(
+  {
+    debit: new FormControl<number | null>(null),
+    credit: new FormControl<number | null>(null)
+  }, 
+  { validators: debitCreditValidatorFn() }
+  );
+
   bankBookPositionForm = new FormGroup({
     documentNumber: new FormControl<number>(0, [Validators.required, Validators.min(1)]),  // For document number
     date: new FormControl<Date>(new Date(), [Validators.required, this.dateValidator]),  // For date
     text: new FormControl('', [Validators.required, Validators.minLength(4)]),  // For title
-    amount: new FormGroup({
-      credit: new FormControl(0),  // For credit amount
-      debit: new FormControl(0)    // For debit amount
-    }),
-    credit: new FormControl<number | null>(null),
-    debit: new FormControl<number | null>(null)
+    bookingAmounts: this.bookingAmounts
   });
 
   constructor(private readonly _createBankBookFacade: CreateBankBookFacade) {}
@@ -46,8 +50,8 @@ export class BankBookPositionFormComponent implements OnInit {
       const position: BankBookPosition = {
         date: formValue.date,
         text: formValue.text,
-        credit: formValue.credit || 0,
-        debit: formValue.debit || 0,
+        credit: formValue.bookingAmounts?.credit || 0,
+        debit: formValue.bookingAmounts?.debit || 0,
         description: formValue.text,
         amount: 0,
         bookingDate: formValue.date,
@@ -75,6 +79,10 @@ export class BankBookPositionFormComponent implements OnInit {
 
     // Emit initial validity
     this.validityChange.emit(this.bankBookPositionForm.valid);
+
+    // this.bookingAmounts.valueChanges.subscribe(value => {
+    //   console.log('Debit/Credit form value changed:', value);
+    // }); 
   }
 
   onBankBookPositionDateError(error: ValidationErrors | null): void {
@@ -92,14 +100,14 @@ export class BankBookPositionFormComponent implements OnInit {
    */
   private updateConfig(): void {
     this.bankBookPositionForm.valueChanges.pipe(untilDestroyed(this)).subscribe(formValues => {
-      const { documentNumber, date, text, amount } = formValues;
+      const { documentNumber, date, text, bookingAmounts } = formValues;
 
       this._createBankBookFacade.actions.setBankBookPositionConfig({
         documentNumber: documentNumber || 0,
         bookingdate: date,
         description: text || '',
-        credit: amount?.credit || 0,
-        debit: amount?.debit || 0
+        credit: bookingAmounts?.credit || 0,
+        debit: bookingAmounts?.debit || 0
       });
     });
   }

@@ -9,8 +9,14 @@
     <ek-textbox-form-field label="Bezeichnung" formControlName="text" />
 
     <div class="amounts">
-      <ek-numerictextbox-form-field label="Credit" formControlName="credit" type="number" />
-      <ek-numerictextbox-form-field label="Debit" formControlName="debit" type="number" />
+      <ek-numerictextbox-form-field 
+        label="Credit" 
+        [formControl]="bookingAmounts.controls.credit" 
+        type="number" />
+      <ek-numerictextbox-form-field 
+        label="Debit" 
+        [formControl]="bookingAmounts.controls.debit" 
+        type="number" />
     </div>
   </form>
 </div>
